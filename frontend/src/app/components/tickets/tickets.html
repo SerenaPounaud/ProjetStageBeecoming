@@ -15,43 +15,32 @@
                 <th>ID</th>
                 <th>Titre</th>
                 <th>Statut</th>
+                <th>Date</th>
                 <th>Actions</th>
             </tr>
         </thead>
 
         <tbody>
-            <tr>
-                <td>#001</td>
-                <td>Problème de connexion</td>
-                <td>
-                    <span class="status open">Ouvert</span>
-                </td>
-                <td>
-                    <button class="edit-btn">Modifier</button>
-                </td>
-            </tr>
-
-            <tr>
-                <td>#002</td>
-                <td>Bug interface mobile</td>
-                <td>
-                    <span class="status progress">En cours</span>
-                </td>
-                <td>
-                    <button class="edit-btn">Modifier</button>
-                </td>
-            </tr>
-
-            <tr>
-                <td>#003</td>
-                <td>Demande de remboursement</td>
-                <td>
-                    <span class="status closed">Fermé</span>
-                </td>
-                <td>
-                    <button class="edit-btn">Modifier</button>
-                </td>
-            </tr>
+            @for(ticket of tickets; track ticket.id; let i =$index){
+                <tr>
+                    <td>{{ticket.id}}</td>
+                    <td>{{ticket.titre}}</td>
+                    <td>
+                        <span class="status" [ngClass]="getStatusStyle(ticket.status)">{{ticket.status}}</span>
+                    </td>
+                    <td>
+                        <span>{{ticket.date | date:'dd-MM-yyyy'}}</span>
+                    </td>
+                    <td>
+                        <button class="edit-btn">Modifier</button>
+                    </td>
+                </tr>
+            }
+            @empty{
+                <tr>
+                    <td colspan="6" class="empty-message">Aucun ticket trouvé</td>
+                </tr>
+            }
         </tbody>
     </table>
 </section>
