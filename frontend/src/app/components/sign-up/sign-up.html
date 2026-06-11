@@ -1,10 +1,39 @@
 <section class="signup-section">
     <div class="signup-div">
         <h2>Inscription</h2>
-        <form class="signup-form">
-            <input type="email" placeholder="Email" required>
-            <input type="password" placeholder="Mot de passe" required>
-            <button type="submit">S'inscrire</button>
+        <form [formGroup]="signUpForm" (ngSubmit)="signUp()" class="signup-form">
+
+            <label for="name">Votre nom</label>
+            <input type="text" id="name" formControlName="name" placeholder="Votre nom" required>
+            @if(signUpForm.get('name')?.invalid && (signUpForm.get('name')?.touched || signUpForm.get('name')?.dirty)) {
+                @if(signUpForm.get('name')?.errors?.['required']){
+                    <div class="text-error">Ce champ est obligatoire</div>
+                } @else if (signUpForm.get('name')?.errors?.['minlength'] || (signUpForm.get('name')?.errors?.['maxlength'])){
+                    <div class="text-error">3 à 20 caractères</div>
+                } 
+            }
+
+            <label for="email">Email</label>
+            <input type="email" id="email" formControlName="email" placeholder="Email" required>
+            @if(signUpForm.get('email')?.invalid && (signUpForm.get('email')?.touched || signUpForm.get('email')?.dirty)) {
+                @if(signUpForm.get('email')?.errors?.['required']){
+                    <div class="text-error">Ce champ est obligatoire</div>
+                } @else if (signUpForm.get('email')?.errors?.['email']){
+                    <div class="text-error">Veuillez entrer une adresse email valide</div>
+                } 
+            }
+
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" formControlName="password" placeholder="Mot de passe" required>
+            @if(signUpForm.get('password')?.invalid && (signUpForm.get('password')?.touched || signUpForm.get('password')?.dirty)) {
+                @if(signUpForm.get('password')?.errors?.['required']){
+                    <div class="text-error">Ce champ est obligatoire</div>
+                } @else if (signUpForm.get('password')?.errors?.['minlength'] || signUpForm.get('password')?.errors?.['maxlength']){
+                    <div class="text-error">6 à 10 caractères</div>
+                }
+            }
+
+            <button type="submit" [disabled]="signUpForm.invalid">S'inscrire</button>
         </form>
     </div>
 </section>
