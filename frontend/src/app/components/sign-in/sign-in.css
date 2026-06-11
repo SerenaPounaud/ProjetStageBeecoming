@@ -16,3 +16,10 @@
     background: #2d6cdf;
     color: white;
 }
+.forgoten-password {
+    text-decoration: none;
+    text-align: center;
+    color: #2d6cdf;
+    font-size: small;
+    cursor: pointer;
+}

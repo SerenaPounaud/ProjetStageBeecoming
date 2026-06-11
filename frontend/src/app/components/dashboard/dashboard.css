@@ -1,3 +1,6 @@
+.dashboard {
+    padding: 20px 0;
+}
 .dashboard-nav {
     display: flex;
     gap: 5%;

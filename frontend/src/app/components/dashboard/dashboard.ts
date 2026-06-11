@@ -9,6 +9,7 @@ import { CreateTicket } from '../create-ticket/create-ticket';
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
+  isConnected:boolean = true;
   sectionActive: string = 'tickets';
 
   changeSection(section: string) {
