@@ -30,6 +30,7 @@
     width: fit-content;
     margin: 0 auto;
 }
-.btn-createTicket:hover {
-    background-color: #005fcc;
+.btn-createTicket:disabled {
+    cursor: not-allowed;
+    background-color: gray;
 }

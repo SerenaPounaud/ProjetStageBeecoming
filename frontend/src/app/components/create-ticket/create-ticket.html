@@ -1,10 +1,27 @@
 <section class="create-ticket">
     <h2>Créer / Modifier un ticket</h2>
-    <form class="ticket-form">
-        <input type="text" placeholder="Titre du ticket">
+    <form class="ticket-form" [formGroup]="createTicketForm" (ngSubmit)="saveTicket()">
 
-        <textarea placeholder="Description du ticket" rows="5"></textarea>
+        <label for="titre">Titre du ticket</label>
+        <input type="text" formControlName="titre" placeholder="Exemple : Problème de connexion">
+            @if(createTicketForm.get('titre')?.invalid && (createTicketForm.get('titre')?.touched || createTicketForm.get('titre')?.dirty)) {
+                @if(createTicketForm.get('titre')?.errors?.['required']){
+                    <div class="text-error">Ce champ est obligatoire</div>
+                } @else if (createTicketForm.get('titre')?.errors?.['minlength'] || (createTicketForm.get('titre')?.errors?.['maxlength'])){
+                    <div class="text-error">3 à 20 caractères</div>
+                } 
+            }
 
-        <button class="btn-createTicket"type="submit">Enregistrer</button>
+        <label for="description">Description</label>
+        <textarea formControlName="description" placeholder="Description de votre problème" rows="6"></textarea>
+            @if(createTicketForm.get('description')?.invalid && (createTicketForm.get('description')?.touched || createTicketForm.get('description')?.dirty)) {
+                @if(createTicketForm.get('description')?.errors?.['required']){
+                    <div class="text-error">Ce champ est obligatoire</div>
+                } @else if (createTicketForm.get('description')?.errors?.['maxlength']){
+                    <div class="text-error">Maximum 1000 caractères</div>
+                } 
+            }
+
+        <button class="btn-createTicket" [disabled]="createTicketForm.invalid" type="submit">Enregistrer</button>
     </form>
 </section>

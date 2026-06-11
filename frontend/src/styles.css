@@ -8,7 +8,10 @@ body {
     background: #f4f6f8;
     color: #333;
 }
-
+.text-error {
+    color: rgb(205, 0, 0);
+    text-align: center;
+}
 form {
     display: flex;
     flex-direction: column;

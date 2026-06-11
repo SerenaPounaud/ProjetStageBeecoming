@@ -29,4 +29,5 @@ export class SignUp {
       this.signUpForm.reset();
     }
   }
+  
 }
