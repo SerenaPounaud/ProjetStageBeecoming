@@ -1,0 +1,26 @@
+.navbar {
+    padding: 1rem 2rem;
+    background-color: #fff;
+}
+.nav-links {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.logo {
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.nav-spacer {
+    margin-left: auto; 
+    display: flex;
+    gap: 1rem; 
+}
+a {
+    text-decoration: none;
+    color: #2c3e50;
+}
+a:hover {
+    color:#2563eb;
+}

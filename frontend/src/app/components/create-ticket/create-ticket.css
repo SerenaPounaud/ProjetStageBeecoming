@@ -1,0 +1,35 @@
+.create-ticket {
+    max-width: 40%;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+.create-ticket h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.ticket-form input,
+.ticket-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+.btn-createTicket {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #0078ff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    width: fit-content;
+    margin: 0 auto;
+}
+.btn-createTicket:hover {
+    background-color: #005fcc;
+}

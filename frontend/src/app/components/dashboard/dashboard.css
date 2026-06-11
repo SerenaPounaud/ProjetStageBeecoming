@@ -1,0 +1,46 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.header-dashboard {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 20px;
+}
+thead {
+    background: #d6d6d6;
+}
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+.status {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    display: inline-block;
+}
+.status.open {
+    background: #ffe0e0;
+    color: #c0392b;
+}
+.status.progress {
+    background: #fff3cd;
+    color: #b58900;
+}
+.status.closed {
+    background: #d4edda;
+    color: #2e7d32;
+}
+.edit-btn {
+    background: #2d6cdf;
+    color: white;
+    padding: 6px 10px;
+    font-size: 13px;
+    border-radius: 5px;
+}

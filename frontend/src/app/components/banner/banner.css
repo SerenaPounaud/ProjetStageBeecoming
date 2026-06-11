@@ -1,0 +1,35 @@
+.section-banner {
+    background: #2c3e50;
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.banner-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.banner-content h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.banner-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    line-height: 1.6;
+    opacity: 0.95;
+}
+.btn-banner {
+    display: inline-block;
+    padding: 14px 30px;
+    background-color: #ffffff;
+    color: #2c3e50;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
