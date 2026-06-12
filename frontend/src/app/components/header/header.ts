@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -8,5 +9,15 @@ import { RouterLink } from '@angular/router';
   styleUrl: './header.css',
 })
 export class Header {
+  constructor(private router: Router) {}
 
+  get isConnected(): boolean {
+    return localStorage.getItem('isConnected') === 'true';
+  }
+
+  logout(): void {
+    localStorage.setItem('isConnected', 'false');
+    localStorage.removeItem('connectedUser');
+    this.router.navigate(['/sign-in']);
+  }
 }

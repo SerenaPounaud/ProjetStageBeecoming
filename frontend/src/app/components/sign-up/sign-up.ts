@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -11,7 +12,7 @@ export class SignUp {
   signUpForm !: FormGroup;
   users:any[]=[];
 
-  constructor(private formBuilder: FormBuilder){}
+  constructor(private formBuilder: FormBuilder, private router: Router){}
 
   ngOnInit():void{
     this.signUpForm = this.formBuilder.group({
@@ -26,7 +27,12 @@ export class SignUp {
       this.users.push(this.signUpForm.value);
       localStorage.setItem('users', JSON.stringify(this.users));
       alert('Inscription réussie');
+
+      localStorage.setItem('isConnected', 'true');
+      localStorage.setItem('connectedUser', JSON.stringify(this.signUpForm.value));
+
       this.signUpForm.reset();
+      this.router.navigate(['']);
     }
   }
   

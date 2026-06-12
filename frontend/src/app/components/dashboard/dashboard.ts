@@ -9,8 +9,12 @@ import { CreateTicket } from '../create-ticket/create-ticket';
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
-  isConnected:boolean = true;
+  isConnected:boolean = false;
   sectionActive: string = 'tickets';
+
+  ngOnInit():void {
+    this.isConnected = localStorage.getItem('isConnected') === 'true';
+  }
 
   changeSection(section: string) {
     this.sectionActive = section;

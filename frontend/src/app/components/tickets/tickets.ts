@@ -1,4 +1,4 @@
-import { DatePipe, LowerCasePipe, NgClass } from '@angular/common';
+import { DatePipe, NgClass } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({

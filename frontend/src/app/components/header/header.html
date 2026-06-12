@@ -3,8 +3,13 @@
         <div class="nav-links">
             <a class="logo" routerLink="/">TicketManager</a>
             <div class="nav-spacer">
-                <a routerLink="/sign-in">Connexion</a>
-                <a routerLink="/sign-up">Inscription</a>
+                @if (!isConnected){
+                    <a routerLink="/sign-in">Connexion</a>
+                    <a routerLink="/sign-up">Inscription</a>
+                } 
+                @if (isConnected){
+                    <a (click)="logout()">Se déconnecter</a>
+                } 
             </div>
         </div>
     </nav>

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { Banner } from '../banner/banner';
 import { Dashboard } from '../dashboard/dashboard';
+import { Banner } from '../banner/banner';
 
 @Component({
   selector: 'app-home',
-  imports: [Banner, Dashboard],
+  imports: [Dashboard, Banner],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
