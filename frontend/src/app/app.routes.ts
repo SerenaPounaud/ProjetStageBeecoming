@@ -13,6 +13,7 @@ export const routes: Routes = [
     {path: 'dashboard', component: Dashboard},
     {path: 'tickets', component: Tickets},
     {path: 'create-ticket', component: CreateTicket},
+    {path: 'edit-ticket/:id', component: CreateTicket},
 
 
 ];

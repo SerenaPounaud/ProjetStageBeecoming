@@ -23,7 +23,6 @@ th, td {
     border-radius: 20px;
     font-size: 12px;
     font-weight: bold;
-    display: inline-block;
 }
 .status-open {
     background: #ffe0e0;

@@ -1,0 +1,12 @@
+<td>{{ticket.id}}</td>
+<td>{{ticket.titre}}</td>
+<td>
+    <span class="status" [style]="getStatusStyle(ticket.status)">{{ticket.status}}</span>
+</td>
+<td>
+    <span>{{ticket.date | date:'dd-MM-yyyy'}}</span>
+</td>
+<td>
+    <button class="edit-btn" (click)="edit(index)">Modifier</button>
+    <button class="edit-btn">Détails</button>
+</td>

@@ -22,19 +22,7 @@
 
         <tbody>
             @for(ticket of tickets; track ticket.id; let i =$index){
-                <tr>
-                    <td>{{ticket.id}}</td>
-                    <td>{{ticket.titre}}</td>
-                    <td>
-                        <span class="status" [ngClass]="getStatusStyle(ticket.status)">{{ticket.status}}</span>
-                    </td>
-                    <td>
-                        <span>{{ticket.date | date:'dd-MM-yyyy'}}</span>
-                    </td>
-                    <td>
-                        <button class="edit-btn">Modifier</button>
-                    </td>
-                </tr>
+                <tr app-tickets-card [ticket]="ticket" [index]="i"></tr>
             }
             @empty{
                 <tr>

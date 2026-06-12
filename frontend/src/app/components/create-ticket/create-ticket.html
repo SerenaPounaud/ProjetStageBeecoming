@@ -8,7 +8,7 @@
                 @if(createTicketForm.get('titre')?.errors?.['required']){
                     <div class="text-error">Ce champ est obligatoire</div>
                 } @else if (createTicketForm.get('titre')?.errors?.['minlength'] || (createTicketForm.get('titre')?.errors?.['maxlength'])){
-                    <div class="text-error">3 à 20 caractères</div>
+                    <div class="text-error">3 à 50 caractères</div>
                 } 
             }
 
