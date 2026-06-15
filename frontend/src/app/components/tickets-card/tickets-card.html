@@ -1,13 +1,12 @@
 <td>{{ticket.id}}</td>
 <td>{{ticket.titre}}</td>
 <td>
-    <span class="status" [style]="getStatusStyle(ticket.status)">{{ticket.status}}</span>
+    <span class="status" [ngClass]="getStatusStyle(ticket.status)">{{ticket.status}}</span>
 </td>
 <td>
     <span>{{ticket.date | date:'dd-MM-yyyy'}}</span>
 </td> 
 <td>
     <button class="btn-card" (click)="edit()">Modifier</button>
-    <button class="btn-card">Détail</button>
-
+    <button class="btn-card"(click)="ticketInfo()">Détails</button>
 </td>

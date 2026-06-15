@@ -5,6 +5,7 @@ import { Home } from './components/home/home';
 import { Dashboard } from './components/dashboard/dashboard';
 import { Tickets } from './components/tickets/tickets';
 import { CreateTicket } from './components/create-ticket/create-ticket';
+import { TicketInfo } from './components/ticket-info/ticket-info';
 
 export const routes: Routes = [
     {path: '', component: Home},
@@ -14,6 +15,7 @@ export const routes: Routes = [
     {path: 'tickets', component: Tickets},
     {path: 'create-ticket', component: CreateTicket},
     {path: 'edit-ticket/:id', component: CreateTicket},
+    {path: 'ticket-info/:id', component: TicketInfo},
 
 
 ];

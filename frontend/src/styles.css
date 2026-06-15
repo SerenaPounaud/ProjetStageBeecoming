@@ -40,3 +40,19 @@ button {
 button:hover {
     opacity: 0.9;
 }
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+body {
+  min-height: 100vh;
+}
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+main {
+    flex: 1;
+}

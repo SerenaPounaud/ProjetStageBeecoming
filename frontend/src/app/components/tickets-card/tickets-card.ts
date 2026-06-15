@@ -1,10 +1,10 @@
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'tr[app-tickets-card]',
-  imports: [DatePipe],
+  imports: [DatePipe, CommonModule],
   templateUrl: './tickets-card.html',
   styleUrl: './tickets-card.css',
 })
@@ -22,6 +22,10 @@ export class TicketsCard {
 
   edit(){
     this.router.navigate(['/edit-ticket', this.ticket.id]);
+  }
+
+  ticketInfo(){
+     this.router.navigate(['/ticket-info', this.ticket.id]);
   }
 
 getStatusStyle(status: string | null | undefined): string {
