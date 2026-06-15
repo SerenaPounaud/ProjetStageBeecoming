@@ -34,3 +34,10 @@
     cursor: not-allowed;
     background-color: gray;
 }
+a {
+    text-decoration: none;
+    color: black;
+}
+a:hover {
+    color: #0078ff;
+}

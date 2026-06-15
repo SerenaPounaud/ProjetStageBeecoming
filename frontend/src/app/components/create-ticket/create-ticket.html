@@ -1,30 +1,30 @@
 <section class="create-ticket">
      @if (isEditMode){
-       <button routerLink="/">Retour</button>
+       <a routerLink="/">Retour</a>
     } 
     <h2>{{isEditMode ? 'Modifier le ticket' : 'Créer un ticket'}}</h2>
     <form class="ticket-form" [formGroup]="createTicketForm" (ngSubmit)="saveTicket()">
 
         <label for="titre">Titre du ticket</label>
-        <input type="text" formControlName="titre" placeholder="Exemple : Problème de connexion">
+        <input type="text" formControlName="titre" placeholder="Exemple : Problème de connexion" id="titre" aria-describedby="titre-error" minlength="3" maxlength="50">
             @if(createTicketForm.get('titre')?.invalid && (createTicketForm.get('titre')?.touched || createTicketForm.get('titre')?.dirty)) {
                 @if(createTicketForm.get('titre')?.errors?.['required']){
-                    <div class="text-error">Ce champ est obligatoire</div>
+                    <div class="text-error" id="titre-error" aria-live="polite">Ce champ est obligatoire</div>
                 } @else if (createTicketForm.get('titre')?.errors?.['minlength'] || (createTicketForm.get('titre')?.errors?.['maxlength'])){
-                    <div class="text-error">3 à 50 caractères</div>
+                    <div class="text-error" id="titre-error" aria-live="polite">3 à 50 caractères</div>
                 } 
             }
 
         <label for="description">Description</label>
-        <textarea formControlName="description" placeholder="Description de votre problème" rows="6"></textarea>
+        <textarea formControlName="description" placeholder="Description de votre problème" rows="6" id="description" aria-describedby="description-error" maxlength="1000"></textarea>
             @if(createTicketForm.get('description')?.invalid && (createTicketForm.get('description')?.touched || createTicketForm.get('description')?.dirty)) {
                 @if(createTicketForm.get('description')?.errors?.['required']){
-                    <div class="text-error">Ce champ est obligatoire</div>
+                    <div class="text-error" id="description-error" aria-live="polite">Ce champ est obligatoire</div>
                 } @else if (createTicketForm.get('description')?.errors?.['maxlength']){
-                    <div class="text-error">Maximum 1000 caractères</div>
+                    <div class="text-error" id="description-error" aria-live="polite">Maximum 1000 caractères</div>
                 } 
             }
 
-        <button class="btn-createTicket" [disabled]="createTicketForm.invalid" type="submit">Enregistrer</button>
+        <button class="btn-createTicket" [disabled]="createTicketForm.invalid" [attr.aria-disabled]="createTicketForm.invalid" type="submit">Enregistrer</button>
     </form>
 </section>
