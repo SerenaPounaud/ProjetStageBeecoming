@@ -1,4 +1,7 @@
 <section class="create-ticket">
+     @if (isEditMode){
+       <button routerLink="/">Retour</button>
+    } 
     <h2>{{isEditMode ? 'Modifier le ticket' : 'Créer un ticket'}}</h2>
     <form class="ticket-form" [formGroup]="createTicketForm" (ngSubmit)="saveTicket()">
 

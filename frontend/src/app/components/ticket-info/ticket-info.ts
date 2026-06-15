@@ -1,10 +1,10 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-ticket-info',
-  imports: [DatePipe],
+  imports: [DatePipe,RouterLink],
   templateUrl: './ticket-info.html',
   styleUrl: './ticket-info.css',
 })

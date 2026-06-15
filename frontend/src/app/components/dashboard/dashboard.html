@@ -2,7 +2,7 @@
     @if(isConnected){
         <nav aria-label="Navigation utilisateur" class="dashboard-nav">
             <button type="button" [class.active]="sectionActive === 'tickets'" (click)="changeSection('tickets')">Vos tickets</button>
-            <button type="button" [class.active]="sectionActive === 'create'" (click)="changeSection('create')">Créer / modifier un ticket</button>
+            <button type="button" [class.active]="sectionActive === 'create'" (click)="changeSection('create')">Créer un ticket</button>
         </nav>
         <section class="section">
             @if(sectionActive === 'tickets') {
