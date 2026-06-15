@@ -1,10 +1,10 @@
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, DatePipe, TitleCasePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'tr[app-tickets-card]',
-  imports: [DatePipe, CommonModule],
+  imports: [DatePipe, CommonModule, TitleCasePipe],
   templateUrl: './tickets-card.html',
   styleUrl: './tickets-card.css',
 })

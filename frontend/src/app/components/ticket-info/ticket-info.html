@@ -1,6 +1,6 @@
 <div class="ticket-container">
     <button routerLink="/">Retour</button>
-    <h2 class="ticket-title">{{ ticket?.titre }}</h2>
+    <h2 class="ticket-title">{{ ticket?.titre| titlecase}}</h2>
 
     <div class="ticket-info">
         <span class="label">Statut :</span>
