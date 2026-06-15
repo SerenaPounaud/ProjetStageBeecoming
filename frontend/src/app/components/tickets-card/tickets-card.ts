@@ -20,8 +20,8 @@ export class TicketsCard {
     this.index = Number(this.activatedRoute.snapshot.paramMap.get('i'));
   }
 
-  edit(i: number){
-    this.router.navigate(['/edit-ticket', i]);
+  edit(){
+    this.router.navigate(['/edit-ticket', this.ticket.id]);
   }
 
 getStatusStyle(status: string | null | undefined): string {

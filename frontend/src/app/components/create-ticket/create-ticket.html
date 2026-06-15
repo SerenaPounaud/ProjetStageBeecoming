@@ -1,5 +1,5 @@
 <section class="create-ticket">
-    <h2>Créer / Modifier un ticket</h2>
+    <h2>{{isEditMode ? 'Modifier le ticket' : 'Créer un ticket'}}</h2>
     <form class="ticket-form" [formGroup]="createTicketForm" (ngSubmit)="saveTicket()">
 
         <label for="titre">Titre du ticket</label>
