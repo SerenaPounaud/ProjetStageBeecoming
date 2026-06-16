@@ -1,21 +1,15 @@
 import { Routes } from '@angular/router';
-import { SignIn } from './components/sign-in/sign-in';
-import { SignUp } from './components/sign-up/sign-up';
 import { Home } from './components/home/home';
-import { Dashboard } from './components/dashboard/dashboard';
-import { Tickets } from './components/tickets/tickets';
-import { CreateTicket } from './components/create-ticket/create-ticket';
-import { TicketInfo } from './components/ticket-info/ticket-info';
 
 export const routes: Routes = [
     {path: '', component: Home},
-    {path: 'sign-in', component: SignIn},
-    {path: 'sign-up', component: SignUp},
-    {path: 'dashboard', component: Dashboard},
-    {path: 'tickets', component: Tickets},
-    {path: 'create-ticket', component: CreateTicket},
-    {path: 'edit-ticket/:id', component: CreateTicket},
-    {path: 'ticket-info/:id', component: TicketInfo},
+    {path: 'sign-in', loadComponent:() => import('./components/sign-in/sign-in').then(m => m.SignIn)},
+    {path: 'sign-up', loadComponent:() => import('./components/sign-up/sign-up').then(m => m.SignUp)},
+    {path: 'dashboard', loadComponent:() => import('./components/dashboard/dashboard').then(m => m.Dashboard)},
+    {path: 'tickets', loadComponent:() => import('./components/tickets/tickets').then(m => m.Tickets)},
+    {path: 'create-ticket', loadComponent:() => import('./components/create-ticket/create-ticket').then(m => m.CreateTicket)},
+    {path: 'edit-ticket/:id', loadComponent:() => import('./components/create-ticket/create-ticket').then(m => m.CreateTicket)},
+    {path: 'ticket-info/:id', loadComponent:() => import('./components/ticket-info/ticket-info').then(m => m.TicketInfo)}
 
 
 ];

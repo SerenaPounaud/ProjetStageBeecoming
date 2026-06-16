@@ -1,10 +1,11 @@
 <main class="dashboard">
     @if(isConnected){
-        <nav aria-label="Navigation utilisateur" class="dashboard-nav">
-            <button type="button" [class.active]="sectionActive === 'tickets'" (click)="changeSection('tickets')">Vos tickets</button>
-            <button type="button" [class.active]="sectionActive === 'create'" (click)="changeSection('create')">Créer un ticket</button>
+        <h2>Tableau de bord</h2>
+        <nav aria-label="Navigation utilisateur" class="dashboard-nav" role="tablist">
+            <button type="button" role="tab" [attr.aria-selected]="sectionActive === 'tickets'" [class.active]="sectionActive === 'tickets'" (click)="changeSection('tickets')">Tickets</button>
+            <button type="button" role="tab" [attr.aria-selected]="sectionActive === 'create'" [class.active]="sectionActive === 'create'" (click)="changeSection('create')">Créer un ticket</button>
         </nav>
-        <section class="section">
+        <section class="section" role="tabpanel">
             @if(sectionActive === 'tickets') {
                 <app-tickets></app-tickets>
             }

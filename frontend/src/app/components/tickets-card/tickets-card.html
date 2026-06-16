@@ -1,12 +1,16 @@
 <td>{{ticket.id}}</td>
 <td>{{ticket.titre | titlecase}}</td>
 <td>
-    <span class="status" [ngClass]="getStatusStyle(ticket.status)">{{ticket.status | titlecase}}</span>
+    <span class="status" [ngClass]="getStatusStyle(ticket.status)" 
+        [attr.aria-label]="'Statut : ' + (ticket.status | titlecase)">
+    {{ticket.status | titlecase}}
+    </span>
 </td>
 <td>
-    <span>{{ticket.date | date:'dd-MM-yyyy'}}</span>
+    <time [attr.datetime]="ticket.date | date:'yyyy-MM-dd'">{{ ticket.date | date:'dd-MM-yyyy' }}</time>
 </td> 
 <td>
-    <button class="btn-card" (click)="edit()">Modifier</button>
-    <button class="btn-card"(click)="ticketInfo()">Détails</button>
+    <span class="sr-only">Actions pour le ticket {{ticket.id}}</span>
+    <button class="btn-card" type="button" (click)="edit()">Modifier</button>
+    <button class="btn-card" type="button" (click)="ticketInfo()">Détails</button>
 </td>

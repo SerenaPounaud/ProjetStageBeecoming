@@ -1,19 +1,26 @@
-<div class="ticket-container">
-    <button routerLink="/">Retour</button>
-    <h2 class="ticket-title">{{ ticket?.titre| titlecase}}</h2>
+<article class="ticket-container">
+  <a routerLink="/" aria-label="Retour à la liste des tickets">← Retour</a>
 
-    <div class="ticket-info">
-        <span class="label">Statut :</span>
-        <span class="status">{{ ticket?.status}}</span>
-    </div>
+  <h2 class="ticket-title">{{ ticket?.titre | titlecase }}</h2>
 
-    <div class="ticket-info">
-        <span class="label">Date :</span>
-        <span>{{ ticket?.date| date:'dd/MM/yyyy' }}</span>
-    </div>
+  <dl class="ticket-info">
+    <dt>Statut :</dt>
+    <dd>
+      <span class="status" [ngClass]="getStatusStyle(ticket.status)" [attr.aria-label]="'Statut du ticket : ' + (ticket?.status | titlecase)">
+        {{ ticket?.status | titlecase }}
+      </span>
+    </dd>
+  </dl>
 
-    <div class="ticket-description">
-        <h3>Description</h3>
-        <p>{{ ticket?.description}}</p>
-    </div>
-</div>
+  <dl class="ticket-info">
+    <dt>Date :</dt>
+    <dd>
+      <time [attr.datetime]="ticket?.date">{{ ticket?.date | date:'dd/MM/yyyy' }}</time>
+    </dd>
+  </dl>
+
+  <section class="ticket-description">
+    <h3>Description</h3>
+    <p>{{ ticket?.description }}</p>
+  </section>
+</article>

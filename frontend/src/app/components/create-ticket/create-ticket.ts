@@ -49,23 +49,22 @@ export class CreateTicket {
       const index = this.usersTickets.findIndex((t: any) => t.id ===idParam); //retourne la position du ticket
 
       if (index !==-1){
+        const existingTicket = this.usersTickets[index];
+
         //remplace le ticket, même id + nouvelles valeurs
         this.usersTickets[index] = {
+          ...existingTicket, //garde date + statut
           id: idParam,
           ...this.createTicketForm.value
         };
       }
-
-
     } else {
-
       this.usersTickets.push({
         id: crypto.randomUUID(), //créer un id
         ...this.createTicketForm.value,
-          status: 'Fermé',
+          status: 'Ouvert',
           date: new Date().toISOString()
       });
-
     }
 
     localStorage.setItem('usersTickets', JSON.stringify(this.usersTickets));

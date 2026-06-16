@@ -11,16 +11,19 @@ td {
     font-weight: bold;
 }
 .status-open {
-    background: #ffe0e0;
-    color: #c0392b;
+    background: #fca4a4;
+    box-shadow: #fca4a4 0px 0px 10px 5px;
+
 }
 .status-progress {
-    background: #fff3cd;
-    color: #b58900;
+    background: #ffedb3;
+    box-shadow: #ffedb3 0px 0px 10px 5px;
+
 }
 .status-closed {
-    background: #d4edda;
-    color: #2e7d32;
+    background: #c4f8d0;
+    box-shadow: #c4f8d0 0px 0px 10px 5px;
+
 }
 .btn-card {
     background: #2d6cdf;
@@ -29,4 +32,15 @@ td {
     font-size: 13px;
     border-radius: 5px;
     margin: 5px;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

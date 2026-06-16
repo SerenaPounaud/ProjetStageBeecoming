@@ -1,15 +1,19 @@
 <header>
-    <nav class="navbar">
+    <nav class="navbar" aria-label="Menu principal">
         <div class="nav-links">
-            <a class="logo" routerLink="/">TicketManager</a>
+            <h1>
+                <a class="logo" routerLink="" aria-label="Retour à l'accueil">TicketManager</a>
+            </h1>
             <div class="nav-spacer">
-                @if (!isConnected){
-                    <a routerLink="/sign-in">Connexion</a>
-                    <a routerLink="/sign-up">Inscription</a>
-                } 
-                @if (isConnected){
-                    <a (click)="logout()">Se déconnecter</a>
-                } 
+                <ul>
+                    @if (!isConnected){
+                        <li><a routerLink="/sign-in">Connexion</a></li>
+                        <li><a routerLink="/sign-up">Inscription</a></li>
+                    } 
+                    @if (isConnected){
+                        <li><button class="logout" type="button" (click)="logout()">Se déconnecter</button></li>
+                    } 
+                </ul>
             </div>
         </div>
     </nav>

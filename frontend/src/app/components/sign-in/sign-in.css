@@ -17,6 +17,10 @@
     background: #2d6cdf;
     color: white;
 }
+.signin-form button:disabled {
+    cursor: not-allowed;
+    background: grey;
+}
 .forgoten-password {
     text-decoration: none;
     text-align: center;

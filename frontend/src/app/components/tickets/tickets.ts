@@ -17,10 +17,4 @@ export class Tickets {
     this.tickets = JSON.parse(localStorage.getItem('usersTickets') || '[]');
   //this.pService.getAllTicket().subscribe();
   }
-
-  /*tickets:any = [
-    { id: 1, titre: 'Problème de connexion', status: 'Ouvert', date: new Date() },
-    { id: 2, titre: 'Bug interface mobile', status: 'En cours', date: new Date() },
-    { id: 3, titre: 'Demande de remboursement', status: 'Fermé', date: new Date() }
-  ];*/
 }

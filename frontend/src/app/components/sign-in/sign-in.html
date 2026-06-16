@@ -1,29 +1,37 @@
 <section class="signin-section">
     <div class="signin-div">
         <h2>Connexion</h2>
-        <form class="signin-form" [formGroup]="signInForm">
+        <form class="signin-form" [formGroup]="signInForm" (ngSubmit)="signIn()">
 
             <label for="email">Email</label>
-            <input type="email" placeholder="Exemple@gmail.fr" formControlName="email" required>
-            @if(signInForm.get('email')?.invalid && (signInForm.get('email')?.touched || signInForm.get('email')?.dirty)) {
-                @if(signInForm.get('email')?.errors?.['required']){
-                    <div class="text-error">Ce champ est obligatoire</div>
-                } @else if (signInForm.get('email')?.errors?.['email']){
-                    <div class="text-error">Veuillez entrer une adresse email valide</div>
-                } 
-            }
+            <input type="email" placeholder="Exemple@gmail.fr" formControlName="email" id="email" aria-describedby="email-error"
+                    [attr.aria-invalid]="signInForm.get('email')?.invalid && (signInForm.get('email')?.touched || signInForm.get('email')?.dirty)" 
+                    autocomplete="email" inputmode="email" required>
+            <div class="text-error" id="email-error" aria-live="polite">
+                @if(signInForm.get('email')?.invalid && (signInForm.get('email')?.touched || signInForm.get('email')?.dirty)) {
+                    @if(signInForm.get('email')?.errors?.['required']){
+                        Ce champ est obligatoire
+                    } @else if (signInForm.get('email')?.errors?.['email']){
+                        Veuillez entrer une adresse email valide
+                    } 
+                }
+            </div>
 
             <label for="password">Mot de passe</label>
-            <input type="password" placeholder="********" formControlName="password" required>
-            @if(signInForm.get('password')?.invalid && (signInForm.get('password')?.touched || signInForm.get('password')?.dirty)) {
-                @if(signInForm.get('password')?.errors?.['required']){
-                    <div class="text-error">Ce champ est obligatoire</div>
+            <input type="password" placeholder="********" formControlName="password" id="password" aria-describedby="password-error"
+                    [attr.aria-invalid]="signInForm.get('password')?.invalid && (signInForm.get('password')?.touched || signInForm.get('password')?.dirty)" 
+                    autocomplete="current-password" required>
+            <div class="text-error" id="password-error" aria-live="polite">
+                @if(signInForm.get('password')?.invalid && (signInForm.get('password')?.touched || signInForm.get('password')?.dirty)) {
+                    @if(signInForm.get('password')?.errors?.['required']){
+                        Ce champ est obligatoire
+                    }
                 }
-            }
+            </div>
 
-            <button type="submit" (click)="signIn()">Se connecter</button>
+            <button type="submit" [disabled]="signInForm.invalid">Se connecter</button>
 
-            <a class="forgoten-password">Mot de passe oublié ?</a>
+            <a routerLink="" onclick="event.preventDefault()" class="forgoten-password" aria-label="Réinitialiser le mot de passe">Mot de passe oublié ?</a>
         </form>
     </div>
 </section>
