@@ -1,0 +1,28 @@
+.legal-notice {
+  padding: 2rem;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.legal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin: 2rem;
+}
+.legal-content section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.legal-content p {
+  line-height: 1.6;
+}
+.legal-content a {
+  text-decoration: none;
+}

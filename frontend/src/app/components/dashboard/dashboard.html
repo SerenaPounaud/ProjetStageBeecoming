@@ -1,5 +1,5 @@
+@if(isConnected){
 <main class="dashboard">
-    @if(isConnected){
         <h2>Tableau de bord</h2>
         <nav aria-label="Navigation utilisateur" class="dashboard-nav" role="tablist">
             <button type="button" role="tab" [attr.aria-selected]="sectionActive === 'tickets'" [class.active]="sectionActive === 'tickets'" (click)="changeSection('tickets')">Tickets</button>
@@ -13,5 +13,5 @@
                 <app-create-ticket></app-create-ticket>
             }
         </section>
-    }
 </main>
+}

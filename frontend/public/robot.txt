@@ -1,0 +1,7 @@
+user-agent: *
+Disallow: /dashboard/
+Disallow: /ticket-info.html
+
+Allow: /
+
+Sitemap: https://www.ticketmanager.com/sitemap.xml

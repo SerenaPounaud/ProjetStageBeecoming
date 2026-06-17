@@ -8,7 +8,7 @@
     justify-content: center;
 }
 .dashboard-nav button {
-    font-size: clamp(10px, 2vw, 18px);
+    font-size: clamp(0.8rem, 1vw, 3rem);
 }
 .active {
     background: #2c3e50;
@@ -16,6 +16,6 @@
 }
 h2 {
     text-align: center;
-    margin: 50px 20px;
-    font-size: xx-large;
+    margin: 40px auto;
+    font-size: clamp(1.5rem, 1.5vw, 5rem);
 }

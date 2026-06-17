@@ -9,7 +9,7 @@ export const routes: Routes = [
     {path: 'tickets', loadComponent:() => import('./components/tickets/tickets').then(m => m.Tickets)},
     {path: 'create-ticket', loadComponent:() => import('./components/create-ticket/create-ticket').then(m => m.CreateTicket)},
     {path: 'edit-ticket/:id', loadComponent:() => import('./components/create-ticket/create-ticket').then(m => m.CreateTicket)},
-    {path: 'ticket-info/:id', loadComponent:() => import('./components/ticket-info/ticket-info').then(m => m.TicketInfo)}
-
-
+    {path: 'ticket-info/:id', loadComponent:() => import('./components/ticket-info/ticket-info').then(m => m.TicketInfo)},
+    {path: 'legal-notice', loadComponent:() => import('./components/legal-notice/legal-notice').then(m => m.LegalNotice)},
+    {path: 'confidentialite', loadComponent:() => import('./components/confidentialite/confidentialite').then(m => m.Confidentialite)}
 ];

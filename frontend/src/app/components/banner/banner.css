@@ -9,7 +9,7 @@
     margin: 0 auto;
 }
 .p-titre {
-    font-size: 2.2rem;
+    font-size: clamp(1.5rem, 2.5vw, 2.5rem);
 }
 .p-para {
     font-size: larger;
@@ -24,4 +24,7 @@
     color: #2c3e50;
     font-weight: bold;
     border-radius: 8px;
+}
+.p-banner, .p-para {
+    font-size: clamp(1rem, 1.2vw, 2rem);
 }

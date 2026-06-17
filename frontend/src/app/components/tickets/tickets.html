@@ -9,26 +9,28 @@
         </select>
     </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Titre</th>
-                <th scope="col">Statut</th>
-                <th scope="col">Date</th>
-                <th scope="col">Actions</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            @for(ticket of tickets; track ticket.id){
-                <tr app-tickets-card [ticket]="ticket"></tr>
-            }
-            @empty{
+    <div class="table-wrapper">
+        <table>
+            <thead>
                 <tr>
-                    <td colspan="5" class="empty-message">Aucun ticket trouvé</td>
+                    <th scope="col">ID</th>
+                    <th scope="col">Titre</th>
+                    <th scope="col">Statut</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Actions</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+
+            <tbody>
+                @for(ticket of tickets; track ticket.id){
+                    <tr app-tickets-card [ticket]="ticket"></tr>
+                }
+                @empty{
+                    <tr>
+                        <td colspan="5" class="empty-message">Aucun ticket trouvé</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </section>
