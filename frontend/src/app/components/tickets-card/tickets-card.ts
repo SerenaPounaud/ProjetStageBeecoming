@@ -12,13 +12,11 @@ export class TicketsCard {
   @Input() ticket: any;
   @Input() index!: number;
 
-  tickets:any[]=[];
-
   constructor(private router:Router, private activatedRoute: ActivatedRoute){}
 
   ngOnInit(){
     this.index = Number(this.activatedRoute.snapshot.paramMap.get('i'));
-  }
+  };
 
   edit(){
     this.router.navigate(['/edit-ticket', this.ticket.id]);

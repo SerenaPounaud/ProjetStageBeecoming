@@ -1,11 +1,11 @@
 <section>
     <div class="header-dashboard">
         <h2>Vos tickets ⤵</h2>
-        <select id="filter-status" aria-label="Filtrer les tickets par statut">
-            <option>Tous</option>
-            <option>Ouvert</option>
-            <option>En cours</option>
-            <option>Fermé</option>
+        <select (change)="onStatusChange($event)" id="filter-status" aria-label="Filtrer les tickets par statut">
+            <option value="tous">Tous</option>
+            <option value="ouvert">Ouvert</option>
+            <option value="en cours">En cours</option>
+            <option value="fermé">Fermé</option>
         </select>
     </div>
 
@@ -22,7 +22,7 @@
             </thead>
 
             <tbody>
-                @for(ticket of tickets; track ticket.id){
+                @for(ticket of filteredTickets; track ticket.id){
                     <tr app-tickets-card [ticket]="ticket"></tr>
                 }
                 @empty{

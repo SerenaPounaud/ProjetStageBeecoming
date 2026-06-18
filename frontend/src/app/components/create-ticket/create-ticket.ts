@@ -62,7 +62,7 @@ export class CreateTicket {
       this.usersTickets.push({
         id: crypto.randomUUID(), //créer un id
         ...this.createTicketForm.value,
-          status: 'Ouvert',
+          status: 'ouvert',
           date: new Date().toISOString()
       });
     }
