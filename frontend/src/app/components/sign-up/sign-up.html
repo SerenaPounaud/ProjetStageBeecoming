@@ -45,6 +45,20 @@
                 }
             </div>
 
+            <label> 
+                <input type="checkbox" id="cgu" formControlName="cgu" aria-describedby="cgu-error"
+                    [attr.aria-invalid]="signUpForm.get('cgu')?.invalid && (signUpForm.get('cgu')?.touched || signUpForm.get('cgu')?.dirty)" 
+                    required>
+                J'accepte les conditions générales d'utilisation
+            </label>
+            <div class="text-error" id="cgu-error" aria-live="polite">
+                @if(signUpForm.get('cgu')?.invalid && (signUpForm.get('cgu')?.touched || signUpForm.get('cgu')?.dirty)) {
+                    @if(signUpForm.get('cgu')?.errors?.['required']){
+                        Veuillez accepter les conditions
+                    } 
+                }
+            </div>
+
             <button type="submit" [disabled]="signUpForm.invalid">S'inscrire</button>
         </form>
     </div>

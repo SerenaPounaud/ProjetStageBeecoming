@@ -18,9 +18,11 @@ export class SignUp {
     this.signUpForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(10)]]
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(10)]],
+      cgu: [ false, Validators.requiredTrue]
     })
   }
+  
   signUp() {
     if(this.signUpForm.valid){
       this.users = JSON.parse(localStorage.getItem('users') || '[]');
