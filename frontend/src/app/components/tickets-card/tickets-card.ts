@@ -19,11 +19,11 @@ export class TicketsCard {
   };
 
   edit(){
-    this.router.navigate(['/edit-ticket', this.ticket.id]);
+    this.router.navigate(['/edit-ticket', this.ticket._id]);
   }
 
   ticketInfo(){
-     this.router.navigate(['/ticket-info', this.ticket.id]);
+     this.router.navigate(['/ticket-info', this.ticket._id]);
   }
 
 getStatusStyle(status: string | null | undefined): string {

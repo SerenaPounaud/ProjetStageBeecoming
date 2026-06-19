@@ -1,5 +1,5 @@
-<td data-label="ID">{{ticket.id}}</td>
-<td data-label="Titre">{{ticket.titre | titlecase}}</td>
+<td data-label="ID">{{ticket._id}}</td>
+<td data-label="Titre">{{ticket.title | titlecase}}</td> 
 <td data-label="Statut">
     <span class="status" [ngClass]="getStatusStyle(ticket.status)" 
         [attr.aria-label]="'Statut : ' + (ticket.status | titlecase)">
@@ -10,7 +10,7 @@
     <time [attr.datetime]="ticket.date | date:'yyyy-MM-dd'">{{ ticket.date | date:'dd-MM-yyyy' }}</time>
 </td> 
 <td data-label="Actions">
-    <span class="sr-only">Actions pour le ticket {{ticket.id}}</span>
+    <span class="sr-only">Actions pour le ticket {{ticket._id}}</span>
     <button class="btn-card" type="button" (click)="edit()">Modifier</button>
     <button class="btn-card" type="button" (click)="ticketInfo()">Détails</button>
 </td>

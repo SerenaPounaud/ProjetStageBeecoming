@@ -1,24 +1,27 @@
-import { Component} from '@angular/core';
+import { Component, inject} from '@angular/core';
 import { TicketsCard } from '../tickets-card/tickets-card';
 import { TicketService } from '../../services/ticket-service';
+import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-tickets',
-  imports: [TicketsCard],
+  imports: [TicketsCard, AsyncPipe],
   templateUrl: './tickets.html',
   styleUrl: './tickets.css',
 })
 export class Tickets {
   tickets:any[] = [];
+  tickets$ !: Observable<any[]>; //données du front
+
   selectedStatus: string = 'tous';
   filteredTickets: any[] =[];
 
-//constructor(private pService: TicketService){}
+private ticketService = inject(TicketService);
 
   ngOnInit(): void {
-    this.tickets = JSON.parse(localStorage.getItem('usersTickets') || '[]');
+    this.tickets$ = this.ticketService.getAllTicket();
     this.applyFilter();
-  //this.pService.getAllTicket().subscribe();
   }
 
   //Met à jour la liste

@@ -22,7 +22,7 @@
             </thead>
 
             <tbody>
-                @for(ticket of filteredTickets; track ticket.id){
+                @for(ticket of tickets$ | async ; track ticket._id){
                     <tr app-tickets-card [ticket]="ticket"></tr>
                 }
                 @empty{

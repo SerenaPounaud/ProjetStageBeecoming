@@ -10,7 +10,7 @@ export class TicketService {
   constructor(private httpClient: HttpClient){}
 
   getAllTicket(){
-    return this.httpClient.get(this.ticketURL);
+    return this.httpClient.get<any[]>(this.ticketURL);
   }
 
   getTicketById(id:number){
