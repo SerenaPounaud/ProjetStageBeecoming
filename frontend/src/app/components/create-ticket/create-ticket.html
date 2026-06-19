@@ -5,15 +5,15 @@
     <h2>{{isEditMode ? 'Modifier le ticket' : 'Créer un ticket'}}</h2>
     <form class="ticket-form" [formGroup]="createTicketForm" (ngSubmit)="saveTicket()">
 
-        <label for="titre">Titre du ticket</label>
-        <input type="text" formControlName="titre" placeholder="Exemple : Problème de connexion" id="titre" aria-describedby="titre-error" 
-                [attr.aria-invalid]="createTicketForm.get('titre')?.invalid && (createTicketForm.get('titre')?.touched || createTicketForm.get('titre')?.dirty)"
+        <label for="title">Titre du ticket</label>
+        <input type="text" formControlName="title" placeholder="Exemple : Problème de connexion" id="title" aria-describedby="title-error" 
+                [attr.aria-invalid]="createTicketForm.get('title')?.invalid && (createTicketForm.get('title')?.touched || createTicketForm.get('title')?.dirty)"
                 minlength="3" maxlength="50" autocomplete="off">
-        <div class="text-error" id="titre-error" aria-live="polite">
-            @if(createTicketForm.get('titre')?.invalid && (createTicketForm.get('titre')?.touched || createTicketForm.get('titre')?.dirty)) {
-                @if(createTicketForm.get('titre')?.errors?.['required']){
+        <div class="text-error" id="title-error" aria-live="polite">
+            @if(createTicketForm.get('title')?.invalid && (createTicketForm.get('title')?.touched || createTicketForm.get('title')?.dirty)) {
+                @if(createTicketForm.get('title')?.errors?.['required']){
                     Ce champ est obligatoire
-                } @else if (createTicketForm.get('titre')?.errors?.['minlength'] || (createTicketForm.get('titre')?.errors?.['maxlength'])){
+                } @else if (createTicketForm.get('title')?.errors?.['minlength'] || (createTicketForm.get('title')?.errors?.['maxlength'])){
                     3 à 50 caractères
                 } 
             }
