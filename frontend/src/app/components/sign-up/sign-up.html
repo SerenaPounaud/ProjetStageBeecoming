@@ -6,7 +6,7 @@
             <label for="name">Votre nom</label>
             <input type="text" id="name" formControlName="name" placeholder="Votre nom" aria-describedby="name-error"
                     [attr.aria-invalid]="signUpForm.get('name')?.invalid && (signUpForm.get('name')?.touched || signUpForm.get('name')?.dirty)" 
-                    autocomplete="on" required>
+                    autocomplete="on">
             <div class="text-error" id="name-error" aria-live="polite">
                 @if(signUpForm.get('name')?.invalid && (signUpForm.get('name')?.touched || signUpForm.get('name')?.dirty)) {
                     @if(signUpForm.get('name')?.errors?.['required']){
@@ -20,7 +20,7 @@
             <label for="email">Email</label>
             <input type="email" id="email" formControlName="email" placeholder="Email" aria-describedby="email-error"
                     [attr.aria-invalid]="signUpForm.get('email')?.invalid && (signUpForm.get('email')?.touched || signUpForm.get('email')?.dirty)" 
-                    autocomplete="email" inputmode="email" required>
+                    autocomplete="email" inputmode="email">
             <div class="text-error" id="email-error" aria-live="polite">
                 @if(signUpForm.get('email')?.invalid && (signUpForm.get('email')?.touched || signUpForm.get('email')?.dirty)) {
                     @if(signUpForm.get('email')?.errors?.['required']){
@@ -34,7 +34,7 @@
             <label for="password">Mot de passe</label>
             <input type="password" id="password" formControlName="password" placeholder="Mot de passe" aria-describedby="password-error"
                     [attr.aria-invalid]="signUpForm.get('password')?.invalid && (signUpForm.get('password')?.touched || signUpForm.get('password')?.dirty)" 
-                    autocomplete="new-password" required>
+                    autocomplete="new-password">
             <div class="text-error" id="password-error" aria-live="polite">
                 @if(signUpForm.get('password')?.invalid && (signUpForm.get('password')?.touched || signUpForm.get('password')?.dirty)) {
                     @if(signUpForm.get('password')?.errors?.['required']){
@@ -47,8 +47,7 @@
 
             <label> 
                 <input type="checkbox" id="cgu" formControlName="cgu" aria-describedby="cgu-error"
-                    [attr.aria-invalid]="signUpForm.get('cgu')?.invalid && (signUpForm.get('cgu')?.touched || signUpForm.get('cgu')?.dirty)" 
-                    required>
+                    [attr.aria-invalid]="signUpForm.get('cgu')?.invalid && (signUpForm.get('cgu')?.touched || signUpForm.get('cgu')?.dirty)" >
                 J'accepte les conditions générales d'utilisation
             </label>
             <div class="text-error" id="cgu-error" aria-live="polite">

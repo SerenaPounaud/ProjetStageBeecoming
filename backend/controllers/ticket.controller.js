@@ -33,7 +33,7 @@ export const getTicketById = async (req,res) => {
 
 export const updateTicket = async (req,res) => {
     try {
-        const ticket = await Ticket.findByIdAndUpdate(req.params.id, req.body, {new: true});
+        const ticket = await Ticket.findByIdAndUpdate(req.params.id, req.body, {returnDocument: 'after'});
         if (!ticket) {
             return res.json({message: "Ticket introuvable"})
         }

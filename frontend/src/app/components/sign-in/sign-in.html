@@ -6,7 +6,7 @@
             <label for="email">Email</label>
             <input type="email" placeholder="Exemple@gmail.fr" formControlName="email" id="email" aria-describedby="email-error"
                     [attr.aria-invalid]="signInForm.get('email')?.invalid && (signInForm.get('email')?.touched || signInForm.get('email')?.dirty)" 
-                    autocomplete="email" inputmode="email" required>
+                    autocomplete="email" inputmode="email">
             <div class="text-error" id="email-error" aria-live="polite">
                 @if(signInForm.get('email')?.invalid && (signInForm.get('email')?.touched || signInForm.get('email')?.dirty)) {
                     @if(signInForm.get('email')?.errors?.['required']){
@@ -20,7 +20,7 @@
             <label for="password">Mot de passe</label>
             <input type="password" placeholder="********" formControlName="password" id="password" aria-describedby="password-error"
                     [attr.aria-invalid]="signInForm.get('password')?.invalid && (signInForm.get('password')?.touched || signInForm.get('password')?.dirty)" 
-                    autocomplete="current-password" required>
+                    autocomplete="current-password">
             <div class="text-error" id="password-error" aria-live="polite">
                 @if(signInForm.get('password')?.invalid && (signInForm.get('password')?.touched || signInForm.get('password')?.dirty)) {
                     @if(signInForm.get('password')?.errors?.['required']){

@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { TicketService } from '../../services/ticket-service';
 
 @Component({
   selector: 'app-create-ticket',
@@ -13,11 +14,12 @@ export class CreateTicket {
   usersTickets:any=[];
   isEditMode:boolean = false;
 
-  constructor(private fb: FormBuilder,private activatedRoute: ActivatedRoute) {}
+  constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute) {}
+  ticketService = inject(TicketService);
 
   ngOnInit():void{
     this.createTicketForm = this.fb.group({
-      titre: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       description: ['', [Validators.required, Validators.maxLength(1000)]]
     });
 
@@ -59,17 +61,26 @@ export class CreateTicket {
         };
       }
     } else {
+      this.ticketService.addTicket(this.createTicketForm.value).subscribe({
+        next: (res) => {
+          alert(this.isEditMode ? 'Ticket modifié avec succès' : 'Ticket créé avec succès');
+          this.createTicketForm.reset();
+        },
+        error:(err) => {
+          console.log(err);
+          alert("Erreur lors de la création du ticket");
+        }
+      })/*
       this.usersTickets.push({
         id: crypto.randomUUID(), //créer un id
         ...this.createTicketForm.value,
-          status: 'ouvert',
-          date: new Date().toISOString()
-      });
+          status: 'ouvert'
+      });*/
     }
 
     localStorage.setItem('usersTickets', JSON.stringify(this.usersTickets));
 
-    alert(this.isEditMode ? 'Ticket modifié avec succès' : 'Ticket créé avec succès');
+    //alert(this.isEditMode ? 'Ticket modifié avec succès' : 'Ticket créé avec succès');
     this.createTicketForm.reset();
   }
 }
