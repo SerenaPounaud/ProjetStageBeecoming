@@ -21,8 +21,8 @@ export class TicketService {
     return this.httpClient.post(this.ticketURL, ticketObj);
   }
 
-  updateTicket(ticketObj:any){
-    return this.httpClient.put(this.ticketURL, ticketObj);
+  updateTicket(id: number | string, ticketObj:any){
+    return this.httpClient.put(this.ticketURL + "/" + id, ticketObj);
   }
 
 }
