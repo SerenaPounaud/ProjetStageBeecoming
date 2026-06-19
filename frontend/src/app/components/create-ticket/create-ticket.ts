@@ -11,7 +11,6 @@ import { TicketService } from '../../services/ticket-service';
 })
 export class CreateTicket {
   createTicketForm !: FormGroup;
-  usersTickets:any=[];
   ticketID !: any;
   isEditMode:boolean = false;
 

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'; //permet de définir des schémas + connection node/mongodb
 
 const ticketSchema = new mongoose.Schema({
-    title: String,
+    title: {type: String, required: true},
     description: String,
     date: {
         type: Date,
