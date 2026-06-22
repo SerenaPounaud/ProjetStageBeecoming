@@ -1,25 +1,25 @@
 import Ticket from "../models/ticket.model.js";
 
-export const addTicket = async (req,res) => {
+export const addTicket = async (req,res,next) => {
     try {
         const ticket = new Ticket(req.body);
         await ticket.save();
         res.json({message: "Ticket envoyé", ticket});
     } catch (error) {
-        res.json({message: "Erreur ajout ticket", error})
+        next(error);
     }
 };
 
-export const getAllTickets = async (req,res) => {
+export const getAllTickets = async (req,res,next) => {
     try {
         const tickets = await Ticket.find(); 
         res.json(tickets);
     } catch (error) {
-        res.json({message: "Erreur récupèration tickets", error})
+        next(error);
     }
 };
 
-export const getTicketById = async (req,res) => {
+export const getTicketById = async (req,res,next) => {
     try {
         const ticket = await Ticket.findById(req.params.id);
         if (!ticket) {
@@ -27,11 +27,11 @@ export const getTicketById = async (req,res) => {
         }
         res.json(ticket);
     } catch (error) {
-        res.json({message: "Erreur récupèration tickets par id", error})
+        next(error);
     }
 };
 
-export const updateTicket = async (req,res) => {
+export const updateTicket = async (req,res,next) => {
     try {
         const ticket = await Ticket.findByIdAndUpdate(req.params.id, req.body, {returnDocument: 'after'});
         if (!ticket) {
@@ -39,6 +39,6 @@ export const updateTicket = async (req,res) => {
         }
         res.json({message: "Ticket modifié", ticket});
     } catch (error) {
-        res.json({message: "Erreur modification", error})
+        next(error);
     }
 };
