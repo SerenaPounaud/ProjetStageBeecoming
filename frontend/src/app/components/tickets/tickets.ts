@@ -13,7 +13,6 @@ import { AsyncPipe } from '@angular/common';
 })
 export class Tickets {
   tickets$ !: Observable<any[]>; //données du front
-
   selectedStatus: string = 'tous';
 
 private ticketService = inject(TicketService);
