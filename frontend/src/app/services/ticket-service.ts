@@ -13,7 +13,7 @@ export class TicketService {
     return this.httpClient.get<any[]>(this.ticketURL);
   }
 
-  getTicketById(id:number){
+  getTicketById(id:string){
     return this.httpClient.get(this.ticketURL + "/" + id);
   }
 

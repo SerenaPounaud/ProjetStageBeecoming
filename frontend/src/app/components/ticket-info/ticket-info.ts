@@ -1,6 +1,7 @@
 import { CommonModule, DatePipe, TitleCasePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { TicketService } from '../../services/ticket-service.js';
 
 @Component({
   selector: 'app-ticket-info',
@@ -12,11 +13,15 @@ export class TicketInfo {
   ticket:any;
 
   constructor(private activatedRoute : ActivatedRoute){}
+  private ticketService = inject(TicketService);
   
   ngOnInit(){
     let id = this.activatedRoute.snapshot.paramMap.get('id');
-    const tickets = JSON.parse(localStorage.getItem("usersTickets") || '[]');
-    this.ticket = tickets.find((t:any) => t.id == id);
+    if (!id) return;
+
+    this.ticketService.getTicketById(id).subscribe((ticket:any) => {
+      this.ticket = ticket;
+    });
   }
   getStatusStyle(status: string | null | undefined): string {
   if (!status) return '';

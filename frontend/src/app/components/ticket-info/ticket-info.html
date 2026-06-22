@@ -1,4 +1,4 @@
-<article class="ticket-container">
+<article class="ticket-container" *ngIf="ticket">
   <a routerLink="/" aria-label="Retour à la liste des tickets">← Retour</a>
 
   <h2 class="ticket-title">{{ ticket?.titre | titlecase }}</h2>
