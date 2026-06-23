@@ -1,14 +1,14 @@
 import jwt from 'jsonwebtoken';
 
 export const verifyToken = (req, res, next) => {
-    const authHeader = req.headers.authorization; //récupère l'en-tête http
+    const authHeader = req.headers.authorization; //récupère l'en-tête http Bearer + token
 
     if(!authHeader) return res.status(403).json({message: "Token requis"});
 
-    const token = authHeader.split(" ")[1];
+    const token = authHeader.split(" ")[1]; //retourne uniquement le token
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET); //vérifie s'il est valide
         req.userId = decoded.id; //ajoute l'id user à la requête
         next();
     } catch (error) {
