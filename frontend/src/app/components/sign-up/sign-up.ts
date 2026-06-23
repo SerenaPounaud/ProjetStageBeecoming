@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UsersService } from '../../services/users-service';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,6 +14,7 @@ export class SignUp {
   users:any[]=[];
 
   constructor(private formBuilder: FormBuilder, private router: Router){}
+  userService = inject(UsersService);
 
   ngOnInit():void{
     this.signUpForm = this.formBuilder.group({
@@ -24,18 +26,18 @@ export class SignUp {
   }
   
   signUp() {
-    if(this.signUpForm.valid){
-      this.users = JSON.parse(localStorage.getItem('users') || '[]');
-      this.users.push(this.signUpForm.value);
-      localStorage.setItem('users', JSON.stringify(this.users));
-      alert('Inscription réussie');
-
+   this.userService.signup(this.signUpForm.value).subscribe({
+    next : (res) => {
       localStorage.setItem('isConnected', 'true');
       localStorage.setItem('connectedUser', JSON.stringify(this.signUpForm.value));
-
-      this.signUpForm.reset();
+      alert('Inscription réussie');
       this.router.navigate(['']);
+    },
+    error: (err) => {
+      console.log(err);
+      alert("Erreur lors de la création du compte");
     }
+   });
   }
   
 }

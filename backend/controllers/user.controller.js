@@ -38,7 +38,7 @@ export const signin = async (req,res,next) => {
         if (!isMatch) return res.status(404).json({message: "Email ou mot de passe incorect"});
 
         const token = jwt.sign(
-            {id: user._id},
+            {id: user._id, name: user.name},
             process.env.JWT_SECRET,
             {expiresIn: "1d"}
         );
