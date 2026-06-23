@@ -10,6 +10,10 @@ const ticketSchema = new mongoose.Schema({
     status: {
         type: String,
         default: "ouvert"
+    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     }
 });
 

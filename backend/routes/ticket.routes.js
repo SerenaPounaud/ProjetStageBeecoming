@@ -9,6 +9,6 @@ const router = express.Router(); //envoi vers le bon controllers
 router.post("/tickets", verifyToken, validateTicket, transformTicket, addTicket);
 router.get("/tickets", getAllTickets);
 router.get("/tickets/:id", getTicketById);
-router.put("/tickets/:id", updateTicket);
+router.put("/tickets/:id", verifyToken, updateTicket);
 
 export default router;

@@ -2,7 +2,11 @@ import Ticket from "../models/ticket.model.js";
 
 export const addTicket = async (req,res,next) => {
     try {
-        const ticket = new Ticket(req.body);
+        const ticket = new Ticket({
+            title: req.body.title,
+            description: req.body.description,
+            userId: req.userId
+        });
         await ticket.save();
         res.json({message: "Ticket envoyé", ticket});
     } catch (error) {
