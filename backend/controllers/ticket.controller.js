@@ -16,7 +16,7 @@ export const addTicket = async (req,res,next) => {
 
 export const getAllTickets = async (req,res,next) => {
     try {
-        const tickets = await Ticket.find(); 
+        const tickets = await Ticket.find().populate("userId", "name");
         res.json(tickets);
     } catch (error) {
         next(error);
