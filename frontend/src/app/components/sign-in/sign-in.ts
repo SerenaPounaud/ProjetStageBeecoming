@@ -29,7 +29,6 @@ signIn() {
   const formValue = this.signInForm.value;
   this.userService.signin(formValue).subscribe({
     next: (res:any) => {
-      console.log(res);
       localStorage.setItem('token', res.token);
       localStorage.setItem('isConnected','true');
       localStorage.setItem('connectedUser', JSON.stringify(this.signInForm.value));
