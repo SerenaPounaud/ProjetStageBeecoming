@@ -32,10 +32,10 @@ export const signin = async (req,res,next) => {
         const {email, password} = req.body;
 
         const user = await User.findOne({email:email});
-        if (!user) return res.status(404).json({message: "Email ou mot de passe incorect"});
+        if (!user) return res.status(401).json({message: "Email ou mot de passe incorect"});
 
-        const isMatch = await User.findOne({password:user.password});
-        if (!isMatch) return res.status(404).json({message: "Email ou mot de passe incorect"});
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) return res.status(401).json({message: "Email ou mot de passe incorect"});
 
         const token = jwt.sign(
          {userId: user._id, name: user.name},
