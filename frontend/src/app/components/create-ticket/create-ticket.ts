@@ -47,10 +47,7 @@ export class CreateTicket {
 
     if (this.isEditMode && idParam){
 
-      this.ticketService.updateTicket(idParam, {
-        id: idParam,
-        ...this.createTicketForm.value
-      }).subscribe({
+      this.ticketService.updateTicket(idParam, this.createTicketForm.value).subscribe({
         next: () => {
           alert('Ticket modifié');
           this.createTicketForm.reset();

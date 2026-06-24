@@ -21,7 +21,12 @@ export const signup = async (req,res,next) => {
         });
 
         await user.save();
-        res.status(200).json({message: "Utilisateur ajouté", user});
+        const token = jwt.sign(
+            {userId: user._id, name: user.name, role: user.role},
+            process.env.JWT_SECRET,
+            {expiresIn: "1d"}
+        );
+        res.status(200).json({message: "Utilisateur ajouté", token});
     } catch (error) {
         next(error);
     }
@@ -38,7 +43,7 @@ export const signin = async (req,res,next) => {
         if (!isMatch) return res.status(401).json({message: "Email ou mot de passe incorect"});
 
         const token = jwt.sign(
-         {userId: user._id, name: user.name},
+         {userId: user._id, name: user.name, role: user.role},
             process.env.JWT_SECRET,
             {expiresIn: "1d"}
         );

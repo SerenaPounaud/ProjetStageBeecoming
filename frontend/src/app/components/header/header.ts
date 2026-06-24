@@ -17,7 +17,7 @@ export class Header {
 
   logout(): void {
     localStorage.setItem('isConnected', 'false');
-    localStorage.removeItem('connectedUser');
+    localStorage.removeItem('token');
     this.router.navigate(['/sign-in']);
   }
 }

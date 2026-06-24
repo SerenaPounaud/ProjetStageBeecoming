@@ -27,9 +27,9 @@ export class SignUp {
   
   signUp() {
    this.userService.signup(this.signUpForm.value).subscribe({
-    next : (res) => {
+    next : (res:any) => {
       localStorage.setItem('isConnected', 'true');
-      localStorage.setItem('connectedUser', JSON.stringify(this.signUpForm.value));
+      localStorage.setItem('token', res.token);
       alert('Inscription réussie');
       this.router.navigate(['']);
     },

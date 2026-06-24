@@ -31,7 +31,6 @@ signIn() {
     next: (res:any) => {
       localStorage.setItem('token', res.token);
       localStorage.setItem('isConnected','true');
-      localStorage.setItem('connectedUser', JSON.stringify(this.signInForm.value));
 
       const decoded = jwtDecode(res.token);
       this.router.navigate(['']);

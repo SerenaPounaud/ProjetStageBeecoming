@@ -16,7 +16,12 @@ export const addTicket = async (req,res,next) => {
 
 export const getAllTickets = async (req,res,next) => {
     try {
-        const tickets = await Ticket.find().populate("userId", "name");
+        let tickets;
+        if (req.userRole === "admin"){
+            tickets = await Ticket.find().populate("userId", "name");
+        } else {
+            tickets = await Ticket.find({userId :req.userId}).populate("userId", "name");
+        }
         res.json(tickets);
     } catch (error) {
         next(error);
@@ -27,21 +32,39 @@ export const getTicketById = async (req,res,next) => {
     try {
         const ticket = await Ticket.findById(req.params.id);
         if (!ticket) {
-            return res.json({message: "Ticket introuvable"})
+            return res.status(404).json({ message: "Ticket introuvable" });
+        }
+
+        if (req.userRole !== "admin" && ticket.userId.toString() !== String(req.userId)) {
+            return res.status(403).json({ message: "Accès refusé" });
         }
         res.json(ticket);
     } catch (error) {
         next(error);
+        
     }
 };
 
 export const updateTicket = async (req,res,next) => {
     try {
-        const ticket = await Ticket.findByIdAndUpdate(req.params.id, req.body, {returnDocument: 'after'});
+        const ticket = await Ticket.findById(req.params.id);
+
         if (!ticket) {
-            return res.json({message: "Ticket introuvable"})
+            return res.status(404).json({ message: "Ticket introuvable" });
         }
-        res.json({message: "Ticket modifié", ticket});
+
+        if (req.userRole !== "admin" && ticket.userId.toString() !== String(req.userId)) {
+            return res.status(403).json({ message: "Accès refusé" });
+        }
+
+        const updated = await Ticket.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { returnDocument: 'after' }
+        );
+
+        res.json({ message: "Ticket modifié", ticket: updated });
+
     } catch (error) {
         next(error);
     }

@@ -1,7 +1,7 @@
 <article class="ticket-container" *ngIf="ticket">
   <a routerLink="/" aria-label="Retour à la liste des tickets">← Retour</a>
 
-  <h2 class="ticket-title">{{ ticket?.titre | titlecase }}</h2>
+  <h2 class="ticket-title">{{ ticket?.title | titlecase }}</h2>
 
   <dl class="ticket-info">
     <dt>Statut :</dt>
@@ -15,7 +15,7 @@
   <dl class="ticket-info">
     <dt>Date :</dt>
     <dd>
-      <time [attr.datetime]="ticket?.date">{{ ticket?.date | date:'dd/MM/yyyy' }}</time>
+      <time [attr.datetime]="ticket?.createdAt">{{ ticket?.createdAt | date:'dd/MM/yyyy' }}</time>
     </dd>
   </dl>
 
