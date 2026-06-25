@@ -9,8 +9,7 @@
                     @if (!isConnected){
                         <li><a routerLink="/sign-in">Connexion</a></li>
                         <li><a routerLink="/sign-up">Inscription</a></li>
-                    } 
-                    @if (isConnected){
+                    } @else {
                         <li><button class="logout" type="button" (click)="logout()">Se déconnecter</button></li>
                     } 
                 </ul>

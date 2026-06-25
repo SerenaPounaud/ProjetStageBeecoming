@@ -54,3 +54,6 @@ a {
 a:hover {
     color: #0078ff;
 }
+pre {
+    white-space: pre-wrap;
+}

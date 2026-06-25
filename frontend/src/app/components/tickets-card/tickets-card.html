@@ -1,4 +1,4 @@
-<td data-label="ID">{{ticket.userId?._id}}</td>
+<td data-label="ID">{{ticket.userId}}</td>
 <td data-label="Titre">{{ticket.title | titlecase}}</td> 
 <td data-label="Statut">
     <span class="status" [ngClass]="getStatusStyle(ticket.status)" 
@@ -11,6 +11,8 @@
 </td> 
 <td data-label="Actions">
     <span class="sr-only">Actions pour le ticket {{ticket._id}}</span>
-    <button class="btn-card" type="button" (click)="edit()">Modifier</button>
+    @if(!isAdmin) {
+        <button class="btn-card" type="button" (click)="edit()">Modifier</button>
+    }
     <button class="btn-card" type="button" (click)="ticketInfo()">Détails</button>
 </td>

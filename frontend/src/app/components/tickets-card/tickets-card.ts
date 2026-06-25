@@ -1,6 +1,7 @@
 import { CommonModule, DatePipe, TitleCasePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'tr[app-tickets-card]',
@@ -12,11 +13,15 @@ export class TicketsCard {
   @Input() ticket: any;
   @Input() index!: number;
 
-  constructor(private router:Router, private activatedRoute: ActivatedRoute){}
+  constructor(private router:Router, private activatedRoute: ActivatedRoute, private authService: AuthService){}
 
   ngOnInit(){
     this.index = Number(this.activatedRoute.snapshot.paramMap.get('i'));
   };
+
+  get isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
 
   edit(){
     this.router.navigate(['/edit-ticket', this.ticket._id]);
