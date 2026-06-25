@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TicketService } from '../../services/ticket-service';
 
 @Component({
@@ -14,7 +14,7 @@ export class CreateTicket {
   ticketID !: any;
   isEditMode:boolean = false;
 
-  constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute) {}
+  constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute, private router: Router) {}
   ticketService = inject(TicketService);
 
   ngOnInit():void{
@@ -51,6 +51,7 @@ export class CreateTicket {
         next: () => {
           alert('Ticket modifié');
           this.createTicketForm.reset();
+          this.router.navigate(['/']);
         },
         error: (err) => {
           console.error(err);
