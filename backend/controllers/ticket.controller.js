@@ -18,9 +18,9 @@ export const getAllTickets = async (req,res,next) => {
     try {
         let tickets;
         if (req.userRole === "admin"){
-            tickets = await Ticket.find().populate("userId", "name");
+            tickets = await Ticket.find(); //récupère tous les tickets
         } else {
-            tickets = await Ticket.find({userId :req.userId}).populate("userId", "name");
+            tickets = await Ticket.find({userId :req.userId});
         }
         res.json(tickets);
     } catch (error) {
@@ -34,7 +34,7 @@ export const getTicketById = async (req,res,next) => {
         if (!ticket) {
             return res.status(404).json({ message: "Ticket introuvable" });
         }
-
+        //si pas admin + le ticket n'appartient pas à l'user connecté
         if (req.userRole !== "admin" && ticket.userId.toString() !== String(req.userId)) {
             return res.status(403).json({ message: "Accès refusé" });
         }
@@ -60,7 +60,7 @@ export const updateTicket = async (req,res,next) => {
         const updated = await Ticket.findByIdAndUpdate(
             req.params.id,
             req.body,
-            { returnDocument: 'after' }
+            { runValidators: true, returnDocument: 'after' } //validation schéma
         );
 
         res.json({ message: "Ticket modifié", ticket: updated });
