@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router} from '@angular/router';
 import { UsersService } from '../../services/users-service';
 import { jwtDecode } from 'jwt-decode';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-sign-in',
@@ -16,6 +17,7 @@ users:any[] = [];
 
 constructor(private fb: FormBuilder, private router: Router){}
 userService = inject(UsersService);
+authService = inject(AuthService);
 
 ngOnInit():void{
 
@@ -31,6 +33,7 @@ signIn() {
     next: (res:any) => {
       localStorage.setItem('token', res.token);
       localStorage.setItem('isConnected','true');
+      this.authService.autoLogout();
 
       const decoded = jwtDecode(res.token);
       this.router.navigate(['']);
