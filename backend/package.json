@@ -5,7 +5,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node server.js"
   },
   "keywords": [],
@@ -17,5 +17,18 @@
     "dotenv": "^17.4.2",
     "joi": "^18.2.3",
     "jsonwebtoken": "^9.0.3"
+  },
+  "devDependencies": {
+    "@jest/globals": "^30.4.1",
+    "jest": "^30.4.2",
+    "supertest": "^7.2.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "verbose": true,
+    "transform": {},
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ]
   }
 }
