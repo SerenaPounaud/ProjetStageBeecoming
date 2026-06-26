@@ -19,6 +19,7 @@ export class SignUp {
   ngOnInit():void{
     this.signUpForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+      firstname: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(10)]],
       cgu: [ false, Validators.requiredTrue]

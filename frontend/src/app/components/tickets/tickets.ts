@@ -3,6 +3,7 @@ import { TicketsCard } from '../tickets-card/tickets-card';
 import { TicketService } from '../../services/ticket-service';
 import { map, Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { AuthService } from '../../services/auth-service';
 
 
 @Component({
@@ -16,9 +17,13 @@ export class Tickets {
   selectedStatus: string = 'tous';
 
 private ticketService = inject(TicketService);
+private authService = inject(AuthService);
 
   ngOnInit(): void {
     this.applyFilter();
+  }
+  get isAdmin(): boolean {
+    return this.authService.isAdmin();
   }
 
   //Met à jour la liste

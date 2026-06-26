@@ -18,7 +18,7 @@ export const getAllTickets = async (req,res,next) => {
     try {
         let tickets;
         if (req.userRole === "admin"){
-            tickets = await Ticket.find(); //récupère tous les tickets
+            tickets = await Ticket.find().populate("userId", "name firstname"); //récupère tous les tickets
         } else {
             tickets = await Ticket.find({userId :req.userId});
         }

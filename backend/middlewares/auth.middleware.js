@@ -10,7 +10,6 @@ export const verifyToken = (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET); //vérifie s'il est valide
-        console.log(decoded);
         req.userId = decoded.userId; //ajoute l'id user à la requête
         req.userRole = decoded.role;
         next();

@@ -3,7 +3,7 @@
         <h2>Inscription</h2>
         <form [formGroup]="signUpForm" (ngSubmit)="signUp()" class="signup-form">
 
-            <label for="name">Votre nom</label>
+            <label for="name">Nom</label>
             <input type="text" id="name" formControlName="name" placeholder="Votre nom" aria-describedby="name-error"
                     [attr.aria-invalid]="signUpForm.get('name')?.invalid && (signUpForm.get('name')?.touched || signUpForm.get('name')?.dirty)" 
                     autocomplete="on">
@@ -12,6 +12,20 @@
                     @if(signUpForm.get('name')?.errors?.['required']){
                         Ce champ est obligatoire
                     } @else if (signUpForm.get('name')?.errors?.['minlength'] || (signUpForm.get('name')?.errors?.['maxlength'])){
+                        3 à 20 caractères
+                    } 
+                }
+            </div>
+
+            <label for="firstname">Prénom</label>
+            <input type="text" id="firstname" formControlName="firstname" placeholder="Votre prénom" aria-describedby="firstname-error"
+                    [attr.aria-invalid]="signUpForm.get('firstname')?.invalid && (signUpForm.get('firstname')?.touched || signUpForm.get('firstname')?.dirty)" 
+                    autocomplete="on">
+            <div class="text-error" id="firstname-error" aria-live="polite">
+                @if(signUpForm.get('firstname')?.invalid && (signUpForm.get('firstname')?.touched || signUpForm.get('name')?.dirty)) {
+                    @if(signUpForm.get('firstname')?.errors?.['required']){
+                        Ce champ est obligatoire
+                    } @else if (signUpForm.get('firstname')?.errors?.['minlength'] || (signUpForm.get('firstname')?.errors?.['maxlength'])){
                         3 à 20 caractères
                     } 
                 }

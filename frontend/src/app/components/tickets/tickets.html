@@ -13,7 +13,12 @@
         <table>
             <thead>
                 <tr>
-                    <th scope="col">ID</th>
+                    @if(isAdmin){
+                        <th scope="col">ID utilisateur</th>
+                        <th scope="col">Utilisateur</th>
+                    } @else {
+                        <th scope="col">ID ticket</th>
+                    }
                     <th scope="col">Titre</th>
                     <th scope="col">Statut</th>
                     <th scope="col">Date</th>

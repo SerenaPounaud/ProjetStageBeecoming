@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 
 export const signup = async (req,res,next) => {
     try {
-        const {name, email, password, cgu} = req.body;
+        const {name, firstname, email, password, cgu} = req.body;
 
         const existingUser = await User.findOne({email:email});
         if (existingUser) return res.status(400).json({message: "Email déjà utilisé"});
@@ -15,6 +15,7 @@ export const signup = async (req,res,next) => {
 
         const user = new User({
             name,
+            firstname,
             email,
             password: hashedPassword,
             cgu
@@ -25,8 +26,9 @@ export const signup = async (req,res,next) => {
         const token = jwt.sign(
             {userId: user._id, role: user.role},
             process.env.JWT_SECRET,
-            {expiresIn: "1h"}
+            {expiresIn: "3h"}
         );
+        return res.status(200).json({message: "Utilisateur créer", token});
     } catch (error) {
         next(error);
     }
@@ -43,13 +45,12 @@ export const signin = async (req,res,next) => {
         if (!isMatch) return res.status(401).json({message: "Email ou mot de passe incorect"});
 
         const token = jwt.sign(
-            {userId: user._id, name: user.name, role: user.role},
+            {userId: user._id, role: user.role},
             process.env.JWT_SECRET,
-            {expiresIn: "1h"}
+            {expiresIn: "3h"}
         );
         const decoded = jwt.decode(token);
-        res.status(200).json({message: "Utilisateur ajouté", token});
-        res.status(201).json({token});
+        res.status(200).json({message: "Connexion réussie", token});
     } catch (error) {
         next(error);
     }

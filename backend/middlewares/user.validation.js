@@ -9,6 +9,13 @@ export const validateUser = (req, res, next) => {
                 "string.max": "Maximum 20 caractères",
                 "any.required": "Le nom est obligatoire"
             }),
+        firstname: Joi.string().empty('').min(3).max(20).required().messages({
+                "string.base": "Le prénom doit être une chaîne de caractère",
+                "string.empty": "Le prénom est obligatoire",
+                "string.min": "Minimum 3 caractères",
+                "string.max": "Maximum 20 caractères",
+                "any.required": "Le prénom est obligatoire"
+            }),
 
         email: Joi.string().empty('').required().messages({
                 "string.base": "La email doit être une chaîne de caractère",

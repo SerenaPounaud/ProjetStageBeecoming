@@ -2,6 +2,7 @@
   <a routerLink="/" aria-label="Retour à la liste des tickets">← Retour</a>
 
   <h2 class="ticket-title">{{ ticket?.title | titlecase }}</h2>
+  <p class="id-ticket">ID : {{ticket._id}}</p>
 
   <dl class="ticket-info">
     <dt>Statut :</dt>

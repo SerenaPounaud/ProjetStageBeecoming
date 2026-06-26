@@ -1,4 +1,10 @@
-<td data-label="ID">{{ticket.userId}}</td>
+
+    @if(isAdmin) {
+        <td data-label="ID">{{ticket.userId._id}}</td>
+        <td data-label="Name">{{ticket.userId.name}} {{ticket.userId.firstname}}</td>
+    } @else {
+        <td data-label="ID">{{ticket._id}}</td>
+    }
 <td data-label="Titre">{{ticket.title | titlecase}}</td> 
 <td data-label="Statut">
     <span class="status" [ngClass]="getStatusStyle(ticket.status)" 
