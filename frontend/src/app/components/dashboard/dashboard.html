@@ -1,17 +1,30 @@
 @if(isConnected){
-<main class="dashboard">
-        <h2>Tableau de bord</h2>
-        <nav aria-label="Navigation utilisateur" class="dashboard-nav" role="tablist">
-            <button type="button" role="tab" [attr.aria-selected]="sectionActive === 'tickets'" [class.active]="sectionActive === 'tickets'" (click)="changeSection('tickets')">Tickets</button>
-            <button type="button" role="tab" [attr.aria-selected]="sectionActive === 'create'" [class.active]="sectionActive === 'create'" (click)="changeSection('create')">Créer un ticket</button>
-        </nav>
-        <section class="section" role="tabpanel">
-            @if(sectionActive === 'tickets') {
-                <app-tickets></app-tickets>
-            }
-            @if(sectionActive === 'create') {
-                <app-create-ticket></app-create-ticket>
-            }
-        </section>
-</main>
+<section class="dashboard">
+    <h2>Tableau de bord</h2>
+    <nav aria-label="Navigation utilisateur" class="dashboard-nav" role="tablist">
+        <button 
+        type="button" 
+        role="tab" 
+        [attr.aria-selected]="sectionActive === 'tickets'" 
+        [class.active]="sectionActive === 'tickets'" 
+        (click)="changeSection('tickets')">Tickets</button>
+    @if(!isAdmin){
+        <button 
+        type="button" 
+        role="tab" 
+        [attr.aria-selected]="sectionActive === 'create'" 
+        [class.active]="sectionActive === 'create'" 
+        (click)="changeSection('create')">Créer un ticket</button>
+    }
+    
+    </nav>
+    <section class="section" role="tabpanel">
+        @if(sectionActive === 'tickets') {
+            <app-tickets></app-tickets>
+        }
+        @if(sectionActive === 'create') {
+            <app-create-ticket></app-create-ticket>
+        }
+    </section>
+</section>
 }

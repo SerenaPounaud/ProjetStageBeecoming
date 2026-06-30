@@ -36,7 +36,6 @@ dt, .status, .id-ticket {
     gap: 5px;
 }
 .ticket-container p {
-    word-wrap: break-word;
     overflow-wrap: break-word;
 }
 .ticket-description h3 {
@@ -44,7 +43,7 @@ dt, .status, .id-ticket {
 }
 .ticket-description p {
     line-height: 1.6;
-    overflow: auto;
+    overflow: auto; /*évite le dépassement + scroll*/
     height: 250px;
 }
 a {
