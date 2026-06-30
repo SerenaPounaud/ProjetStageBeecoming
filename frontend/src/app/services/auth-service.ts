@@ -27,7 +27,6 @@ export class AuthService {
       return null;
     }
   }
-
   isAdmin():boolean {
     return this.getUserRole() === 'admin';
   }

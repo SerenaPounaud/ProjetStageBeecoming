@@ -13,18 +13,15 @@ td {
 .status-open {
     background: #fca4a4;
     box-shadow: #fca4a4 0px 0px 10px 5px;
-
 }
 .status-progress {
     background: #ffedb3;
     box-shadow: #ffedb3 0px 0px 10px 5px;
     white-space: nowrap;
-
 }
 .status-closed {
     background: #c4f8d0;
     box-shadow: #c4f8d0 0px 0px 10px 5px;
-
 }
 .btn-card {
     background: #2d6cdf;
@@ -33,6 +30,11 @@ td {
     font-size: 13px;
     border-radius: 5px;
     margin: 5px;
+}
+button:disabled {
+  opacity: 0.5;
+  background-color: gray;
+  cursor: not-allowed;
 }
 .sr-only {
   position: absolute;

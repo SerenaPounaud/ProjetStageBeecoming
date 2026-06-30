@@ -15,21 +15,25 @@ export class TicketsCard {
 
   constructor(private router:Router, private activatedRoute: ActivatedRoute, private authService: AuthService){}
 
-  ngOnInit(){
-    this.index = Number(this.activatedRoute.snapshot.paramMap.get('i'));
-  };
+ngOnInit(){
+  this.index = Number(this.activatedRoute.snapshot.paramMap.get('i'));
+};
 
-  get isAdmin(): boolean {
-    return this.authService.isAdmin();
-  }
+get isAdmin(): boolean {
+  return this.authService.isAdmin();
+}
 
-  edit(){
-    this.router.navigate(['/edit-ticket', this.ticket._id]);
-  }
+isActionDisabled(status: string):boolean {
+  return status === 'fermé' || status === 'en cours';
+}
 
-  ticketInfo(){
-     this.router.navigate(['/ticket-info', this.ticket._id]);
-  }
+edit(){
+  this.router.navigate(['/edit-ticket', this.ticket._id]);
+}
+
+ticketInfo(){
+    this.router.navigate(['/ticket-info', this.ticket._id]);
+}
 
 getStatusStyle(status: string | null | undefined): string {
   if (!status) return '';

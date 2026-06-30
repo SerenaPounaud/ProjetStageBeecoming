@@ -18,7 +18,7 @@
 <td data-label="Actions">
     <span class="sr-only">Actions pour le ticket {{ticket._id}}</span>
     @if(!isAdmin) {
-        <button class="btn-card" type="button" (click)="edit()">Modifier</button>
+        <button class="btn-card" type="button" (click)="edit()" [disabled]="isActionDisabled(ticket.status)">Modifier</button>
     }
     <button class="btn-card" type="button" (click)="ticketInfo()">Détails</button>
 </td>
