@@ -14,15 +14,28 @@ export const addTicket = async (req,res,next) => {
     }
 };
 
+//tickets + pagination + filtrage + gestion des droits
 export const getAllTickets = async (req,res,next) => {
     try {
-        let tickets;
-        if (req.userRole === "admin"){
-            tickets = await Ticket.find().populate("userId", "name firstname"); //récupère tous les tickets
-        } else {
-            tickets = await Ticket.find({userId :req.userId});
+        const page = parseInt(req.query.page) || 1; //récupère param page convertit en entier
+        const limit = parseInt(req.query.limit) || 10;
+        const skip = (page - 1) * limit; //calcul le nombre de document à ignorer
+        const status = req.query.status; //récupère le statut
+        let filter = {}; //condition de filtrage
+
+        if (req.userRole !== "admin"){
+            filter.userId = req.userId; 
+        } 
+        if (status && status !== "tous"){
+            filter.status = status;
         }
-        res.json(tickets);
+        const total = await Ticket.countDocuments(filter); //compte le nb de documents correspondant au filtre
+        const tickets = await Ticket.find(filter)
+            .populate("userId", "name firstname")
+            .skip(skip) //ignore les précédents documents
+            .limit(limit); //limite le nb de résultats retournés
+
+        res.json({data: tickets, page, totalPages: Math.ceil(total/limit), totalItems: total});
     } catch (error) {
         next(error);
     }

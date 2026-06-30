@@ -27,7 +27,7 @@
             </thead>
 
             <tbody>
-                @for(ticket of tickets$ | async ; track ticket._id){
+                @for(ticket of tickets ; track ticket._id){
                     <tr app-tickets-card [ticket]="ticket"></tr>
                 }
                 @empty{
@@ -37,5 +37,10 @@
                 }
             </tbody>
         </table>
+        <div class="pagination">
+            <button (click)="previousPage()" [disabled]="page === 1">Précédent</button>
+            <span>Page {{page}} / {{totalPages}}</span>
+            <button (click)="nextPage()" [disabled]="page === totalPages">Suivant</button>
+        </div>
     </div>
 </section>
