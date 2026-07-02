@@ -1,28 +1,30 @@
 import Joi from 'joi';
 
 export const validateUser = (req, res, next) => {
-    const Schema = Joi.object({
-        name: Joi.string().empty('').min(3).max(20).required().messages({
+    const Schema = Joi.object({ //autorise lettres, accents, espaces et tirets
+        name: Joi.string().min(3).max(20).pattern(/^[a-zA-ZÀ-ÿ\s-]+$/).required().messages({
                 "string.base": "Le nom doit être une chaîne de caractère",
                 "string.empty": "Le nom est obligatoire",
                 "string.min": "Minimum 3 caractères",
                 "string.max": "Maximum 20 caractères",
+                "string.pattern.base": "Le nom contient des caractères non autorisés",
                 "any.required": "Le nom est obligatoire"
             }),
-        firstname: Joi.string().empty('').min(3).max(20).required().messages({
+        firstname: Joi.string().min(3).max(20).pattern(/^[a-zA-ZÀ-ÿ\s-]+$/).required().messages({
                 "string.base": "Le prénom doit être une chaîne de caractère",
                 "string.empty": "Le prénom est obligatoire",
                 "string.min": "Minimum 3 caractères",
                 "string.max": "Maximum 20 caractères",
+                "string.pattern.base": "Le prénom contient des caractères non autorisés",
                 "any.required": "Le prénom est obligatoire"
             }),
 
-        email: Joi.string().empty('').required().messages({
+        email: Joi.string().required().messages({
                 "string.base": "La email doit être une chaîne de caractère",
                 "string.empty": "La email est obligatoire",
                 "any.required": "La email est obligatoire"
             }),
-        password: Joi.string().empty('').min(3).max(10).required().messages({
+        password: Joi.string().min(3).max(10).required().messages({
                 "string.base": "Le mot de passe doit être une chaîne de caractère",
                 "string.empty": "Le mot de passe est obligatoire",
                 "string.min": "Minimum 3 caractères",

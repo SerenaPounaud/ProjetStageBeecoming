@@ -49,7 +49,6 @@ export const signin = async (req,res,next) => {
             process.env.JWT_SECRET,
             {expiresIn: "3h"}
         );
-        const decoded = jwt.decode(token);
         res.status(200).json({message: "Connexion réussie", token});
     } catch (error) {
         next(error);

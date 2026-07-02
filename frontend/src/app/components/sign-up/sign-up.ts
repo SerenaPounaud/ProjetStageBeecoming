@@ -36,7 +36,9 @@ export class SignUp {
     },
     error: (err) => {
       console.log(err);
-      alert("Erreur lors de la création du compte");
+      const message = err.error?.errors?.join(', ') // transforme en string + virgule
+      || err.error?.message || "Erreur lors de la création du compte";
+      alert(message);
     }
    });
   }
