@@ -21,3 +21,31 @@
     cursor: not-allowed;
     background: grey;
 }
+
+.help {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+.tooltip {
+    position: absolute;
+    bottom: 25px;
+    left: -38px;
+    transform: translateX(-50%);
+    background: black;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.2s;
+    width: max-content;
+    max-width: 300px;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+.help:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+}

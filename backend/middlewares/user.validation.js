@@ -19,16 +19,17 @@ export const validateUser = (req, res, next) => {
                 "any.required": "Le prénom est obligatoire"
             }),
 
-        email: Joi.string().required().messages({
+        email: Joi.string().email({tlds: {allow: true}}).required().messages({ //extension de domaine
                 "string.base": "La email doit être une chaîne de caractère",
                 "string.empty": "La email est obligatoire",
                 "any.required": "La email est obligatoire"
             }),
-        password: Joi.string().min(3).max(10).required().messages({
+        password: Joi.string().min(3).max(10).pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/).required().messages({
                 "string.base": "Le mot de passe doit être une chaîne de caractère",
                 "string.empty": "Le mot de passe est obligatoire",
                 "string.min": "Minimum 3 caractères",
                 "string.max": "Maximum 10 caractères",
+                "string.pattern.base": "Le mot de passe doit contenir une majuscule, une minuscule et un chiffre",
                 "any.required": "Le mot de passe est obligatoire"
             }),
         cgu: Joi.boolean().valid(true).required().messages({

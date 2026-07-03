@@ -17,8 +17,8 @@ export const addTicket = async (req,res,next) => {
 //tickets + pagination + filtrage + gestion des droits
 export const getAllTickets = async (req,res,next) => {
     try {
-        const page = parseInt(req.query.page) || 1; //récupère param page convertit en entier
-        const limit = parseInt(req.query.limit) || 10;
+        const page = parseInt(req.query?.page) || 1; //récupère param page convertit en entier
+        const limit = parseInt(req.query?.limit) || 10;
         const skip = (page - 1) * limit; //calcul le nombre de document à ignorer
         const status = req.query.status; //récupère le statut
         let filter = {}; //condition de filtrage
