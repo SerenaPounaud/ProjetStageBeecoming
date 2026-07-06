@@ -48,8 +48,8 @@
             <div class="label-container">
                 <label for="password">Mot de passe</label>
                 <div class="help">
-                    <span class="icon">❓</span>
-                    <span class="tooltip">Le mot de passe doit contenir une majuscule, une minuscule et un chiffre</span>
+                    <button class="icon" type="button" aria-describedby="password-help" aria-label="Aide sur le mot de passe">❓</button>
+                    <span class="tooltip" id="password-help" role="tooltip">Le mot de passe doit contenir une majuscule, une minuscule et un chiffre</span>
                 </div>
             </div>
             <input type="password" id="password" formControlName="password" placeholder="Mot de passe" aria-describedby="password-error"
@@ -78,7 +78,7 @@
                 }
             </div>
 
-            <button type="submit" [disabled]="signUpForm.invalid">S'inscrire</button>
+            <button type="submit" class="signupButton" [disabled]="signUpForm.invalid">S'inscrire</button>
         </form>
     </div>
 </section>

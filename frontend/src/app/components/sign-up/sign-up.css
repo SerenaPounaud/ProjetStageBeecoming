@@ -13,15 +13,14 @@
     margin: 0 auto;
     text-align: center;
 }
-.signup-form button {
+.signupButton{
     background: #2d6cdf;
     color: white;
 }
-.signup-form button:disabled {
+.signupButton:disabled {
     cursor: not-allowed;
     background: grey;
 }
-
 .help {
   position: relative;
   display: inline-block;
@@ -48,4 +47,7 @@
 .help:hover .tooltip {
   opacity: 1;
   visibility: visible;
+}
+.icon {
+    background: transparent;
 }
