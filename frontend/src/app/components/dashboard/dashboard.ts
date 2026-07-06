@@ -11,16 +11,23 @@ import { AuthService } from '../../services/auth-service';
 })
 export class Dashboard {
   isConnected:boolean = false;
+  isAdmin: boolean = false;
   sectionActive: string = 'tickets';
+
   private authService = inject(AuthService);
 
   ngOnInit():void {
-    this.isConnected = localStorage.getItem('isConnected') === 'true';
+    this.authService.me().subscribe({
+      next: (res:any) => {
+        this.isConnected = res.authenticated;
+        this.isAdmin = res.role === 'admin';
+      },
+      error: (err) => {
+        this.isConnected = false;
+        this.isAdmin = false;
+      }
+    })
   }
-    get isAdmin(): boolean {
-    return this.authService.isAdmin();
-  }
-
   changeSection(section: string) {
     this.sectionActive = section;
   }

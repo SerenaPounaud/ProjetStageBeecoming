@@ -28,7 +28,14 @@ export const signup = async (req,res,next) => {
             process.env.JWT_SECRET,
             {expiresIn: "3h"}
         );
-        return res.status(200).json({message: "Utilisateur créer", token});
+        // cookie hhtponly
+        res.cookie("token", token, {
+            httpOnly: true, //empêche l'accès au cookie depuis le JS
+            secure: false, //interception réseau
+            sameSite: "lax", //empêche l'envoi du cookie depuis un autre domaine
+            maxAge: 3*60*60*1000 //3h
+        });
+        return res.status(200).json({message: "Utilisateur créer"});
     } catch (error) {
         next(error);
     }
@@ -49,8 +56,41 @@ export const signin = async (req,res,next) => {
             process.env.JWT_SECRET,
             {expiresIn: "3h"}
         );
-        res.status(200).json({message: "Connexion réussie", token});
+        //cookie httponly
+        res.cookie("token", token, {
+            httpOnly: true, //empêche l'accès au cookie depuis le JS
+            secure: false, //interception réseau
+            sameSite: "lax", //empêche l'envoi du cookie depuis un autre domaine
+            maxAge: 3*60*60*1000 //3h
+        });
+        res.status(200).json({message: "Connexion réussie"});
     } catch (error) {
         next(error);
+    }
+};
+export const logout = (req, res) => {
+    res.clearCookie("token", {
+        httpOnly: true,
+        sameSite: "lax",
+        secure: false
+    });
+
+    return res.status(200).json({ message: "Déconnecté" });
+};
+
+export const me = (req, res) => {
+    const token = req.cookies.token;
+    if(!token) return res.status(401).json({authenticated: false});
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+        return res.status(200).json({
+            authenticated: true,
+            userId: decoded.userId,
+            role: decoded.role
+        });
+    } catch(error) {
+        return res.status(401).json({authenticated: false});
     }
 };

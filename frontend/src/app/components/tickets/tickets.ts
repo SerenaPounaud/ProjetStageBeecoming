@@ -17,17 +17,26 @@ export class Tickets {
   totalPages = 0;
 
   selectedStatus: string = 'tous';
+  isAdmin: boolean = false;
 
 private ticketService = inject(TicketService);
 private authService = inject(AuthService);
 
   ngOnInit(): void {
+    this.loadUser();
     this.loadTicket();
   }
-  get isAdmin(): boolean {
-    return this.authService.isAdmin();
+  //récupère rôle depuis backend
+  loadUser() {
+    this.authService.me().subscribe({
+      next: (res: any) => {
+        this.isAdmin = res.role === 'admin';
+      },
+      error: () => {
+        this.isAdmin = false;
+      }
+    });
   }
-
   //Met à jour la liste en fonction du statut
   onStatusChange(event: Event){
     this.selectedStatus = (event.target as HTMLSelectElement).value; //récupère la valeur select

@@ -17,7 +17,6 @@ users:any[] = [];
 
 constructor(private fb: FormBuilder, private router: Router){}
 userService = inject(UsersService);
-authService = inject(AuthService);
 
 ngOnInit():void{
 
@@ -30,15 +29,10 @@ ngOnInit():void{
 signIn() {
   const formValue = this.signInForm.value;
   this.userService.signin(formValue).subscribe({
-    next: (res:any) => {
-      localStorage.setItem('token', res.token);
-      localStorage.setItem('isConnected','true');
-      this.authService.autoLogout();
-
-      const decoded = jwtDecode(res.token);
+    next: () => {
       this.router.navigate(['']);
     },
-    error: (err) => {
+    error: () => {
       alert("Email ou mot de passe incorrect");
     }
   });

@@ -7,9 +7,12 @@ import { corsOption } from './cors/cors.js';
 import { errorHandler } from './middlewares/error.middleware.js';
 import helmet from 'helmet';
 import {apiLimiter} from './middlewares/rateLimit.middleware.js';
+import cookieParser from 'cookie-parser';
 
 const app = express();
+app.use(cookieParser()); //permet de lire les cookies
 app.use(cors(corsOption));
+
 
 app.disable("x-powered-by"); //supprime header express
 app.use(helmet({ //ajout headers htpp de sécurité
@@ -29,7 +32,7 @@ app.use(express.json({limit: "10kb"})); //permet d'utiliser des données json + 
 
 
 app.use("/api", apiLimiter); //limite le nombre de req globale
-app.use("/api", userRoutes);
+app.use("/api/users", userRoutes);
 app.use("/api", ticketRoutes);
 
 

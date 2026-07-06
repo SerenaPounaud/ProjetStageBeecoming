@@ -12,15 +12,16 @@ import { AuthService } from '../../services/auth-service';
 export class TicketsCard {
   @Input() ticket: any;
   @Input() index!: number;
+  isAdmin: boolean = false;
 
-  constructor(private router:Router, private activatedRoute: ActivatedRoute, private authService: AuthService){}
+  constructor(private router:Router, private activatedRoute: ActivatedRoute){}
 
 ngOnInit(){
   this.index = Number(this.activatedRoute.snapshot.paramMap.get('i'));
 };
 
-get isAdmin(): boolean {
-  return this.authService.isAdmin();
+SetAdmin(value: boolean) {
+  this.isAdmin = value;
 }
 
 isActionDisabled(status: string):boolean {

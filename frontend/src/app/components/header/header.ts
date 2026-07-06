@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-header',
@@ -9,15 +11,26 @@ import { RouterLink } from '@angular/router';
   styleUrl: './header.css',
 })
 export class Header {
-  constructor(private router: Router) {}
+  isConnected:boolean = false;
 
-  get isConnected(): boolean {
-    return localStorage.getItem('isConnected') === 'true';
-  }
+  constructor(private router: Router, private http: HttpClient, private authService: AuthService) {}
 
-  logout(): void {
-    localStorage.setItem('isConnected', 'false');
-    localStorage.removeItem('token');
-    this.router.navigate(['/sign-in']);
+  ngOnInit():void {
+    this.authService.me().subscribe({
+      next: (res:any) => {
+        this.isConnected = res.authenticated;
+      },
+      error: (err) => {
+        this.isConnected = false;
+      }
+    })
   }
+  
+logout(): void {
+  this.authService.logout().subscribe({
+    next: () => {
+      this.router.navigate(['/sign-in']);
+    }
+  });
+}
 }
