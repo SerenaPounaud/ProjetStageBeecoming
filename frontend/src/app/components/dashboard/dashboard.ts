@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Tickets } from '../tickets/tickets';
 import { CreateTicket } from '../create-ticket/create-ticket';
-import { AuthService } from '../../services/auth-service';
+import { UsersService } from '../../services/users-service';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,10 +14,10 @@ export class Dashboard {
   isAdmin: boolean = false;
   sectionActive: string = 'tickets';
 
-  private authService = inject(AuthService);
+  private usersService = inject(UsersService);
 
   ngOnInit():void {
-    this.authService.me().subscribe({
+    this.usersService.me().subscribe({
       next: (res:any) => {
         this.isConnected = res.authenticated;
         this.isAdmin = res.role === 'admin';

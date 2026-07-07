@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsersService } from '../../services/users-service';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,8 +14,11 @@ export class SignUp {
   signUpForm !: FormGroup;
   users:any[]=[];
 
-  constructor(private formBuilder: FormBuilder, private router: Router){}
-  userService = inject(UsersService);
+  constructor(
+    private formBuilder: FormBuilder, 
+    private router: Router, 
+    private userService : UsersService, 
+    private authService: AuthService){}
 
   ngOnInit():void{
     this.signUpForm = this.formBuilder.group({
@@ -29,6 +33,7 @@ export class SignUp {
   signUp() {
    this.userService.signup(this.signUpForm.value).subscribe({
     next : () => {
+      this.authService.setConnected(true);
       alert('Inscription réussie');
       this.router.navigate(['']);
     },

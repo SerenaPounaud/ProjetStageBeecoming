@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class TicketService {
-  ticketURL:string = 'http://localhost:3000/api/tickets';
+  ticketURL:string = '/api/tickets';
 
   constructor(private httpClient: HttpClient){}
 

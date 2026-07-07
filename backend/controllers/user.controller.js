@@ -1,6 +1,8 @@
 import User from '../models/user.model.js';
 import bcrypt from 'bcrypt';
+import { Router } from 'express';
 import jwt from 'jsonwebtoken';
+
 
 //traitement logique des req
 
@@ -68,22 +70,23 @@ export const signin = async (req,res,next) => {
         next(error);
     }
 };
+
 export const logout = (req, res) => {
-    res.clearCookie("token", {
+    res.clearCookie("token", { //supprime le cookie
         httpOnly: true,
         sameSite: "lax",
         secure: false
     });
-
     return res.status(200).json({ message: "Déconnecté" });
 };
 
+//vérifie si user connecté
 export const me = (req, res) => {
-    const token = req.cookies.token;
+    const token = req.cookies.token; //récupère le cookie
     if(!token) return res.status(401).json({authenticated: false});
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET); //vérifie token valide
 
         return res.status(200).json({
             authenticated: true,

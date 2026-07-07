@@ -1,7 +1,6 @@
 import { CommonModule, DatePipe, TitleCasePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'tr[app-tickets-card]',
@@ -12,17 +11,13 @@ import { AuthService } from '../../services/auth-service';
 export class TicketsCard {
   @Input() ticket: any;
   @Input() index!: number;
-  isAdmin: boolean = false;
+  @Input() isAdmin: boolean = false;
 
   constructor(private router:Router, private activatedRoute: ActivatedRoute){}
 
 ngOnInit(){
   this.index = Number(this.activatedRoute.snapshot.paramMap.get('i'));
 };
-
-SetAdmin(value: boolean) {
-  this.isAdmin = value;
-}
 
 isActionDisabled(status: string):boolean {
   return status === 'fermé' || status === 'en cours';

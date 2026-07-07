@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router} from '@angular/router';
 import { UsersService } from '../../services/users-service';
-import { jwtDecode } from 'jwt-decode';
 import { AuthService } from '../../services/auth-service';
 
 @Component({
@@ -15,8 +14,11 @@ export class SignIn {
 signInForm !: FormGroup;
 users:any[] = [];
 
-constructor(private fb: FormBuilder, private router: Router){}
-userService = inject(UsersService);
+constructor(
+  private fb: FormBuilder, 
+  private router: Router, 
+  private authService: AuthService, 
+  private userService: UsersService){}
 
 ngOnInit():void{
 
@@ -30,6 +32,7 @@ signIn() {
   const formValue = this.signInForm.value;
   this.userService.signin(formValue).subscribe({
     next: () => {
+      this.authService.setConnected(true);
       this.router.navigate(['']);
     },
     error: () => {

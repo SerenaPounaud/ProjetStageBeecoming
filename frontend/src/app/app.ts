@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
+import { AuthService } from './services/auth-service';
 
 @Component({
   selector: 'app-root',
@@ -11,4 +12,10 @@ import { Footer } from './components/footer/footer';
 })
 export class App {
   protected readonly title = signal('frontend');
+
+  constructor(private authService: AuthService){}
+
+  ngOnInit(){
+    this.authService.checkAuth();
+  }
 }

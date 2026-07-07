@@ -28,7 +28,7 @@
 
             <tbody>
                 @for(ticket of tickets ; track ticket._id){
-                    <tr app-tickets-card [ticket]="ticket"></tr>
+                    <tr app-tickets-card [ticket]="ticket" [isAdmin]="isAdmin"></tr>
                 }
                 @empty{
                     <tr>

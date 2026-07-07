@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
@@ -11,24 +10,21 @@ import { AuthService } from '../../services/auth-service';
   styleUrl: './header.css',
 })
 export class Header {
-  isConnected:boolean = false;
+  isConnected = false;
 
-  constructor(private router: Router, private http: HttpClient, private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
-  ngOnInit():void {
-    this.authService.me().subscribe({
-      next: (res:any) => {
-        this.isConnected = res.authenticated;
-      },
-      error: (err) => {
-        this.isConnected = false;
-      }
-    })
+  ngOnInit() {
+    this.authService.isConnected$.subscribe(status => {
+      console.log("Header reçoit :", status);
+      this.isConnected = status;
+    });
   }
   
 logout(): void {
   this.authService.logout().subscribe({
     next: () => {
+      this.authService.setConnected(false);
       this.router.navigate(['/sign-in']);
     }
   });
