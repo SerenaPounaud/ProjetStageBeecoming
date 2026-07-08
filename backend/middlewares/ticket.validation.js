@@ -2,7 +2,7 @@ import Joi from 'joi';
 
 export const validateTicket = (req, res, next) => {
     const Schema = Joi.object({
-        title: Joi.string().empty('').min(3).max(50).required().messages({
+        title: Joi.string().empty('').min(3).max(50).pattern(/^[a-zA-ZÀ-ÿ0-9\s.,!?()'"’:_\-/#]+$/).required().messages({
                 "string.base": "Le titre doit être une chaîne de caractère",
                 "string.empty": "Le titre est obligatoire",
                 "string.min": "Minimum 3 caractères",
@@ -10,7 +10,7 @@ export const validateTicket = (req, res, next) => {
                 "any.required": "Le titre est obligatoire"
             }),
 
-        description: Joi.string().empty('').max(1000).required().messages({
+        description: Joi.string().empty('').max(1000).pattern(/^[\p{L}\p{N}\s.,!?()'"’:_\-/#@%+=&]+$/u).required().messages({
                 "string.base": "La description doit être une chaîne de caractère",
                 "string.empty": "La description est obligatoire",
                 "string.max": "Maximum 1000 caractères",

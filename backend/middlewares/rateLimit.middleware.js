@@ -15,7 +15,7 @@ export const apiLimiter = rateLimit({
 
 //Limite login
 export const loginLimiter = rateLimit({
-    windowMs: 10*60*1000, //10min
+    windowMs: 15*60*1000, //15min
     max: 5,
-    message: "Trop de tentative"
+    message: "Trop de tentative de connexion"
 });

@@ -16,7 +16,6 @@ export class Header {
 
   ngOnInit() {
     this.authService.isConnected$.subscribe(status => {
-      console.log("Header reçoit :", status);
       this.isConnected = status;
     });
   }

@@ -14,7 +14,6 @@ export class AuthService {
   constructor (private http: HttpClient) {}
 
   setConnected(value:boolean) {
-    console.log("Etat connexion :", value);
     this.connectedSubject.next(value); //envoie une nouvelle valeur aux abonnés
   }
 
