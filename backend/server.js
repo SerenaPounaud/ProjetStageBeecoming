@@ -5,7 +5,7 @@ import app from "./app.js";
 import connectDB from "./config/db.js";
 
 connectDB();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
     console.log(`Le serveur tourne sur le port ${PORT}`);

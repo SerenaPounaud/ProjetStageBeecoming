@@ -30,10 +30,10 @@ export const signup = async (req,res,next) => {
             process.env.JWT_SECRET,
             {expiresIn: "3h"}
         );
-        // cookie hhtponly
+        // cookie hhtponly, risque csrf
         res.cookie("token", token, {
             httpOnly: true, //empêche l'accès au cookie depuis le JS
-            secure: false, //interception réseau
+            secure: process.env.NODE_ENV === "production", //interception réseau
             sameSite: "lax", //empêche l'envoi du cookie depuis un autre domaine
             maxAge: 3*60*60*1000 //3h
         });
@@ -61,7 +61,7 @@ export const signin = async (req,res,next) => {
         //cookie httponly
         res.cookie("token", token, {
             httpOnly: true, //empêche l'accès au cookie depuis le JS
-            secure: false, //interception réseau
+            secure: process.env.NODE_ENV === "production", //interception réseau
             sameSite: "lax", //empêche l'envoi du cookie depuis un autre domaine
             maxAge: 3*60*60*1000 //3h
         });

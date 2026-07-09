@@ -3,7 +3,7 @@ import {logout, me, signin, signup} from "../controllers/user.controller.js";
 import { validateUser } from '../middlewares/user.validation.js';
 import {transformUser} from '../middlewares/transformUser.middleware.js';
 import { loginLimiter } from '../middlewares/rateLimit.middleware.js';
-import { sanitizeBody } from '../middlewares/sanitizeBody.middleware.js'; //évite injection nosql
+import { sanitizeBody } from '../middlewares/sanitizeBody.middleware.js';
 
 const router = express.Router(); //envoi vers le bon controllers
 

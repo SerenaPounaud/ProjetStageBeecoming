@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const connectDB = async () => {
     try {
-        await mongoose.connect("mongodb://127.0.0.1:27017/ticketManagerDB");
+        await mongoose.connect(process.env.DB_URL);
         console.log("MongoDB connecté")
     } catch (error) {
         console.error("Erreur mongodb", error);

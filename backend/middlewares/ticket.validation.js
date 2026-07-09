@@ -10,7 +10,7 @@ export const validateTicket = (req, res, next) => {
                 "any.required": "Le titre est obligatoire"
             }),
 
-        description: Joi.string().empty('').max(1000).pattern(/^[\p{L}\p{N}\s.,!?()'"’:_\-/#@%+=&]+$/u).required().messages({
+        description: Joi.string().empty('').max(1000).pattern(/^[a-zA-ZÀ-ÿ0-9\s.,!?()'"’:_\-/#@%+=&]+$/u).required().messages({
                 "string.base": "La description doit être une chaîne de caractère",
                 "string.empty": "La description est obligatoire",
                 "string.max": "Maximum 1000 caractères",
