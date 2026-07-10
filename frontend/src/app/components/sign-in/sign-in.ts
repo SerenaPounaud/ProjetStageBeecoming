@@ -31,8 +31,9 @@ ngOnInit():void{
 signIn() {
   const formValue = this.signInForm.value;
   this.userService.signin(formValue).subscribe({
-    next: () => {
+    next: (res) => {
       this.authService.setConnected(true);
+      this.authService.setExpiration(res.expiresAt);
       this.router.navigate(['']);
     },
     error: () => {

@@ -11,11 +11,11 @@ export class UsersService {
   userURL: string = "/api/users";
 
   signup(userObj:any){
-    return this.httpClient.post(this.userURL + "/signup", userObj, {withCredentials: true});
+    return this.httpClient.post<any>(this.userURL + "/signup", userObj, {withCredentials: true});
   }
 
   signin(userObj:any){
-    return this.httpClient.post(this.userURL + "/signin", userObj, {withCredentials: true});
+    return this.httpClient.post<any>(this.userURL + "/signin", userObj, {withCredentials: true});
   }
 
   me(){

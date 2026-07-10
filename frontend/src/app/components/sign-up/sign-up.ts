@@ -32,8 +32,9 @@ export class SignUp {
   
   signUp() {
    this.userService.signup(this.signUpForm.value).subscribe({
-    next : () => {
+    next : (res) => {
       this.authService.setConnected(true);
+      this.authService.setExpiration(res.expiresAt);
       alert('Inscription réussie');
       this.router.navigate(['']);
     },
