@@ -37,7 +37,7 @@ export const signup = async (req,res,next) => {
             sameSite: "lax", //empêche l'envoi du cookie depuis un autre domaine
             maxAge: 60*1000 //3h
         });
-        return res.status(200).json({message: "Utilisateur créer", expiresAt: Date.now() + 60*1000});
+        return res.status(200).json({message: "Utilisateur créé", expiresAt: Date.now() + 60*1000});
     } catch (error) {
         next(error);
     }
@@ -47,7 +47,7 @@ export const signin = async (req,res,next) => {
     try {
         const {email, password} = req.body;
 
-        const user = await User.findOne({email:email});
+        const user = await User.findOne({email});
         if (!user) return res.status(401).json({message: "Email ou mot de passe incorrect"});
 
         const isMatch = await bcrypt.compare(password, user.password);

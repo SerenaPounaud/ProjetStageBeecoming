@@ -1,15 +1,45 @@
-import {signup} from '../controllers/user.controller.js';
-import User from '../models/user.model.js';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import { jest } from '@jest/globals';
 
-//crée une fausse version
-jest.mock('../models/user.model.js');
-jest.mock('bcrypt');
-jest.mock('jsonwebtoken');
+const User = jest.fn();
+User.findOne = jest.fn(); //fonction fictive
+
+const bcryptMock = {
+    hash: jest.fn(),
+    compare: jest.fn()
+};
+
+const jwtMock = {
+    sign: jest.fn(),
+    verify: jest.fn()
+};
+
+//remplace un vrai module
+jest.unstable_mockModule('../models/user.model.js', () => ({
+    default: User
+}));
+jest.unstable_mockModule('bcrypt', () => ({
+    hash: jest.fn(),
+    compare: jest.fn(),
+    default: bcryptMock
+}));
+jest.unstable_mockModule('jsonwebtoken', () => ({
+    sign: jest.fn(),
+    verify: jest.fn(),
+    default: jwtMock
+}));
+
+const {signup} = await import('../controllers/user.controller.js');
+const bcrypt = (await import('bcrypt')).default;
+const jwt = (await import('jsonwebtoken')).default;
 
 
 describe("Test du controller signup", () => { //regroupe les tests
+    //supprime l'historique des appels
+    beforeEach(() => {
+        jest.clearAllMocks();
+    process.env.JWT_SECRET = "secret_test";
+    });
+
     test("devrait créer un utilisateur correctement", async() => {
     //simulation de la requête
     const req = {
@@ -37,9 +67,10 @@ describe("Test du controller signup", () => { //regroupe les tests
     bcrypt.hash.mockResolvedValue("password_hashé");
 
     //simulation du constructeur User
-    const saveMock = jest.fn().mockResolvedValue(); //fausse méthode save
+    const saveMock = jest.fn().mockResolvedValue(); //fausse méthode save qui réussit
 
-        User.mockImplementation(() => ({
+        User.mockImplementation((data) => ({
+            ...data,
             _id: "12345",
             role: "user",
             save: saveMock 
@@ -56,16 +87,38 @@ describe("Test du controller signup", () => { //regroupe les tests
 
         expect(bcrypt.hash).toHaveBeenCalledWith("azerty", 10);
 
-        expect(saveMock).toHaveBeenCalledWith();
+        //vérifie que le mot de passe stocké est bien le hash
+        expect(User).toHaveBeenCalledWith({
+            name: 'Dupont',
+            firstname:'Michel',
+            email: 'jean@test.fr',
+            password: 'password_hashé',
+            cgu: true
+        });
 
-        expect(jwt.sign).toHaveBeenCalledWith();
+        //vérification sauvegarde
+        expect(saveMock).toHaveBeenCalled();
 
+        //vérification token
+        expect(jwt.sign).toHaveBeenCalledWith(
+        {
+            userId: "12345",
+            role: "user"
+        },
+        "secret_test",
+        {
+            expiresIn: "1m"
+        }
+    );
+
+        //vérification cookie
         expect(res.cookie).toHaveBeenCalledWith("token", "fake_token", expect.any(Object));
 
         expect(res.status).toHaveBeenCalledWith(200);
 
+        //vérification du contenu de la réponse
         expect(res.json).toHaveBeenCalledWith({
-            message: "Utilisateur créer",
+            message: "Utilisateur créé",
             expiresAt: expect.any(Number)
         });
     });
@@ -92,7 +145,11 @@ describe("Test du controller signup", () => { //regroupe les tests
         expect(res.status).toHaveBeenCalledWith(400);
 
         expect(res.json).toHaveBeenCalledWith({message: "Email déjà utilisé"});
+
+        //vérifie qu'il n'a pas été créé
+        expect(User).not.toHaveBeenCalled();
+
+        //vérifie que le mot de passe n'a pas été hashé
+        expect(bcrypt.hash).not.toHaveBeenCalled();
     });
 });
-
-
