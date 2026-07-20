@@ -8,7 +8,7 @@ export const addTicket = async (req,res,next) => {
             userId: req.userId
         });
         await ticket.save();
-        res.json({message: "Ticket envoyé", ticket});
+        res.status(201).json({message: "Ticket envoyé", ticket});
     } catch (error) {
         next(error);
     }
@@ -20,7 +20,7 @@ export const getAllTickets = async (req,res,next) => {
         const page = parseInt(req.query?.page) || 1; //récupère param page convertit en entier
         const limit = parseInt(req.query?.limit) || 10;
         const skip = (page - 1) * limit; //calcul le nombre de document à ignorer
-        const status = req.query.status; //récupère le statut
+        const status = req.query?.status; //récupère le statut
         let filter = {}; //condition de filtrage
 
         if (req.userRole !== "admin"){
@@ -54,7 +54,6 @@ export const getTicketById = async (req,res,next) => {
         res.json(ticket);
     } catch (error) {
         next(error);
-        
     }
 };
 
