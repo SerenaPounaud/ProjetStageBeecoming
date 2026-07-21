@@ -65,8 +65,14 @@ export const updateTicket = async (req,res,next) => {
             return res.status(404).json({ message: "Ticket introuvable" });
         }
 
-        if (req.userRole !== "admin" && ticket.userId.toString() !== String(req.userId)) {
+        //vérifie que l'user est le créateur
+        if (ticket.userId.toString() !== String(req.userId)) {
             return res.status(403).json({ message: "Accès refusé" });
+        }
+
+        //vérifie le statut du ticket
+        if (ticket.status !== "ouvert") {
+            return res.status(403).json({ message: "Le ticket ne peut être modifié" });
         }
 
         const updated = await Ticket.findByIdAndUpdate(

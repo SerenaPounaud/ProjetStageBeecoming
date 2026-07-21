@@ -55,7 +55,7 @@ describe("Test du controller Ticket", () => { //regroupe les tests
     //exécution du controleur
     await addTicket(req, res, next);
 
-    //vérifie l'ensemble des arguments
+    //vérification du constructeur
     expect(Ticket).toHaveBeenCalledWith({
         title: 'Demande de remboursement',
         description: 'Description du problème',
@@ -70,7 +70,7 @@ describe("Test du controller Ticket", () => { //regroupe les tests
     //vérification du contenu de la réponse
     expect(res.json).toHaveBeenCalledWith({
         message: "Ticket envoyé",
-        ticket: expect.objectContaining({
+        ticket: expect.objectContaining({ //vérifie ces propriétés
             title: 'Demande de remboursement',
             description: 'Description du problème',
             userId: "userId",
@@ -111,18 +111,19 @@ describe("Test du controller Ticket", () => { //regroupe les tests
     //nombre total de tickets
     Ticket.countDocuments.mockResolvedValue(2);
 
-    //chainage 
+    //chaînage 
     Ticket.find.mockReturnValue({
-        populate: jest.fn().mockReturnThis(),
+        populate: jest.fn().mockReturnThis(), //retourne le même objet
         skip: jest.fn().mockReturnThis(),
-        limit: jest.fn().mockResolvedValue(ticketsMock)
+        limit: jest.fn().mockResolvedValue(ticketsMock) //envoi la réponse final
     });
 
     await getAllTickets(req, res, next);
 
-    //vérifie le filtre utilisateur
+    //vérifie le nombre de tickets de l'utilisateur
     expect(Ticket.countDocuments).toHaveBeenCalledWith({userId: "user123"});
 
+    //vérifie la récupèration des tickets de l'utilisateur
     expect(Ticket.find).toHaveBeenCalledWith({userId: "user123"});
 
     //vérifie pagination
@@ -135,7 +136,7 @@ describe("Test du controller Ticket", () => { //regroupe les tests
 });
     test("getAllTickets: admin récupère tous les tickets", async() => {
         const req = {
-            query: {},
+            query: {}, //sans param
             userId: "user123",
             userRole: "admin"
         };
@@ -145,8 +146,10 @@ describe("Test du controller Ticket", () => { //regroupe les tests
 
         const next = jest.fn();
 
+        //contient de base 5 tickets
         Ticket.countDocuments.mockResolvedValue(5);
 
+        //simulation de la recherche
         Ticket.find.mockReturnValue({
             populate: jest.fn().mockReturnThis(),
             skip: jest.fn().mockReturnThis(),
@@ -155,8 +158,10 @@ describe("Test du controller Ticket", () => { //regroupe les tests
 
         await getAllTickets(req, res, next);
 
+        //vérifie que l'admin compte tous les tickets
         expect(Ticket.countDocuments).toHaveBeenCalledWith({});
 
+        //vérifie la récupèration des tickets de l'admin
         expect(Ticket.find).toHaveBeenCalledWith({});
 
         expect(res.json).toHaveBeenCalledWith({
@@ -166,7 +171,7 @@ describe("Test du controller Ticket", () => { //regroupe les tests
             totalItems: 5
         });
     });
-        test("getAllTickets: filtre par status", async() => {
+    test("getAllTickets: filtre par status", async() => {
         const req = {
             query: {
                 status: "ouvert"
@@ -178,18 +183,22 @@ describe("Test du controller Ticket", () => { //regroupe les tests
             json: jest.fn()
         };
 
+        //contient de base 1 ticket
         Ticket.countDocuments.mockResolvedValue(1);
 
         Ticket.find.mockReturnValue({
             populate: jest.fn().mockReturnThis(),
             skip: jest.fn().mockReturnThis(),
-            limit: jest.fn().mockResolvedValue([{title: "Ticket ouvert"}])
+            limit: jest.fn().mockResolvedValue([
+                {title: "Problème de connexion", status: "ouvert"}
+            ])
         });
 
         const next = jest.fn();
 
         await getAllTickets(req, res, next);
 
+        //vérification filtre combinés
         expect(Ticket.find).toHaveBeenCalledWith({
             userId: "user123",
             status: "ouvert"
@@ -216,21 +225,23 @@ describe("Test du controller Ticket", () => { //regroupe les tests
             _id: "ticket123",
             title: "Problème",
             userId: {
-                toString: () => "user123"
+                toString: () => "user123" //convertit pour comparer
             }
         };
 
-        Ticket.findById.mockReturnValue(ticket);
+        //simule l'appelle du ticket
+        Ticket.findById.mockResolvedValue(ticket);
 
         await getTicketById(req, res, next);
 
+        //vérification de la recherche
         expect(Ticket.findById).toHaveBeenCalledWith("ticket123");
 
         expect(res.json).toHaveBeenCalledWith(ticket);
 
         expect(next).not.toHaveBeenCalled();
     });
-        test("getTicketById : ticket introuvable", async () => {
+    test("getTicketById : ticket introuvable", async () => {
         const req = {
             params: {
                 id: "ticket123"
@@ -244,6 +255,7 @@ describe("Test du controller Ticket", () => { //regroupe les tests
 
         const next = jest.fn();
 
+        //simule aucun ticket
         Ticket.findById.mockResolvedValue(null);
 
         await getTicketById(req, res, next);
@@ -254,7 +266,7 @@ describe("Test du controller Ticket", () => { //regroupe les tests
             message: "Ticket introuvable"
         });
     });
-        test("getTicketById : accès refusé", async () => {
+    test("getTicketById : accès refusé", async () => {
         const req = {
             params: {
                 id: "ticket123"
@@ -270,6 +282,7 @@ describe("Test du controller Ticket", () => { //regroupe les tests
 
         const next = jest.fn();
 
+        //simule le ticket retourné
         Ticket.findById.mockResolvedValue({
             userId: {
                 toString: () => "autreUser"
@@ -284,7 +297,7 @@ describe("Test du controller Ticket", () => { //regroupe les tests
             message: "Accès refusé"
         });
     });
-        test("getTicketById : condition admin", async () => {
+    test("getTicketById : condition admin", async () => {
         const req = {
             params: {
                 id: "ticket123"
@@ -308,6 +321,7 @@ describe("Test du controller Ticket", () => { //regroupe les tests
             }
         };
 
+        //retourne ce ticket
         Ticket.findById.mockResolvedValue(ticket);
 
         await getTicketById(req, res, next);
@@ -316,7 +330,7 @@ describe("Test du controller Ticket", () => { //regroupe les tests
 
         expect(res.json).toHaveBeenCalledWith(ticket);
     });
-        test("updateTicket : modifier correctement un ticket", async () => {
+    test("updateTicket : modifier correctement un ticket", async () => {
         const req = {
             params: {
                 id: "ticket123"
@@ -336,11 +350,13 @@ describe("Test du controller Ticket", () => { //regroupe les tests
 
         const next = jest.fn();
 
+        //simule un ticket déjà existant
         const ticket = {
             _id: "ticket123",
             userId: {
                 toString: () => "user123"
-            }
+            },
+            status: "ouvert"
         };
 
         const updatedTicket = {
@@ -349,16 +365,21 @@ describe("Test du controller Ticket", () => { //regroupe les tests
             description: "Nouvelle description"
         };
 
+        //simule la recherche du ticket
         Ticket.findById.mockResolvedValue(ticket);
 
+        //simule la modification
         Ticket.findByIdAndUpdate.mockResolvedValue(updatedTicket);
 
         await updateTicket(req, res, next);
 
+        //vérification de la recherche
         expect(Ticket.findById).toHaveBeenCalledWith("ticket123");
 
+        //vérification de la modification
         expect(Ticket.findByIdAndUpdate).toHaveBeenCalledWith("ticket123", req.body, {
             runValidators: true, returnDocument: "after"
+            //vérifie les règles du model + retour après modif
         });
 
         expect(res.json).toHaveBeenCalledWith({
@@ -366,119 +387,201 @@ describe("Test du controller Ticket", () => { //regroupe les tests
             ticket: updatedTicket
         });
     });
-        test("updateTicket: admin peut modifier un ticket", async() => {
-            const req = {
-                params: {
-                    id: "ticket123"
-                },
-                userId: "admin123",
-                userRole: "admin",
-                body: {
-                    status: "fermé"
-                }
-            };
+    test("updateTicket: admin ne peut pas modifier un ticket", async() => {
+        const req = {
+            params: {
+                id: "ticket123"
+            },
+            userId: "admin123",
+            userRole: "admin",
+            body: {
+                status: "fermé"
+            }
+        };
 
-            const res = {
-                json: jest.fn(),
-                status: jest.fn().mockReturnThis()
-            };
+        const res = {
+            json: jest.fn(),
+            status: jest.fn().mockReturnThis()
+        };
 
-            const next = jest.fn();
+        const next = jest.fn();
 
-            const ticket = {
-                _id: "ticket123",
-                userId: {
-                    toString: () => "autreUser"
-                }
-            };
-
-            Ticket.findById.mockResolvedValue(ticket);
-
-            Ticket.findByIdAndUpdate.mockResolvedValue({status: "fermé"});
-
-            await updateTicket(req, res, next);
-
-            expect(res.json).toHaveBeenCalledWith({
-                message: "Ticket modifié",
-                ticket: {
-                    status: "fermé"
-                }
-            });
+        //simule la réponse, admin veut changer ce ticket
+        Ticket.findById.mockResolvedValue({
+            _id:"ticket123",
+            userId:{
+                toString:()=> "user123"
+            },
+            status:"ouvert"
         });
-        test("updateTicket : ticket introuvable", async() => {
-            const req = {
-                params: {
-                    id: "ticket123"
-                }
-            };
 
-            const res = {
-                json: jest.fn(),
-                status: jest.fn().mockReturnThis()
-            };
+        await updateTicket(req, res, next);
 
-            const next = jest.fn();
+        expect(res.status).toHaveBeenCalledWith(403);
 
-            Ticket.findById.mockResolvedValue(null);
+        expect(res.json).toHaveBeenCalledWith({message:"Accès refusé"});
 
-            await updateTicket(req, res, next);
+        //vérification qu'il n'y a eu aucune modif
+        expect(Ticket.findByIdAndUpdate).not.toHaveBeenCalled();
 
-            expect(res.status).toHaveBeenCalledWith(404);
+        expect(next).not.toHaveBeenCalled();
+    });
+    test("updateTicket: impossible de modifier un ticket fermé", async() => {
+        const req = {
+            params: {
+                id: "ticket123"
+            },
+            userId: "user123",
+            userRole: "user",
+            body: {
+                title: "Modification"
+            }
+        };
 
-            expect(res.json).toHaveBeenCalledWith({
-                message: "Ticket introuvable"
-            });
+        const res = {
+            status: jest.fn().mockReturnThis(),
+            json: jest.fn()
+        };
+
+        const next = jest.fn();
+
+        Ticket.findById.mockResolvedValue({
+            userId: {
+                toString: () => "user123"
+            },
+            status: "fermé"
         });
-        test("updateTicket: accès refusé", async() => {
-            const req = {
-                params: {
-                    id: "ticket123"
-                },
-                userId: "user123",
-                userRole: "user",
-                body: {
-                    title: "Modification"
-                }
-            };
 
-            const res = {
-                status: jest.fn().mockReturnThis(),
-                json: jest.fn()
-            };
+        await updateTicket(req, res, next);
 
-            const next = jest.fn();
+        expect(res.status).toHaveBeenCalledWith(403);
 
-            Ticket.findById.mockResolvedValue({
-                userId: {
-                    toString: () => "autreUser"
-                }
-            });
-
-            await updateTicket(req, res, next);
-
-            expect(res.status).toHaveBeenCalledWith(403);
-
-            expect(res.json).toHaveBeenCalledWith({message: "Accès refusé"});
-
-            expect(Ticket.findByIdAndUpdate).not.toHaveBeenCalled();
+        expect(res.json).toHaveBeenCalledWith({
+            message: "Le ticket ne peut être modifié"
         });
-        test("updateTicket: erreur serveur", async() => {
-            const req = {
-                params: {
-                    id: "ticket123"
-                }
-            };
 
-            const res = {
-                json: jest.fn()
-            };
+        expect(Ticket.findByIdAndUpdate).not.toHaveBeenCalled();
+    });
+        test("updateTicket: impossible de modifier un ticket en cours", async() => {
+        const req = {
+            params: {
+                id: "ticket123"
+            },
+            userId: "user123",
+            userRole: "user",
+            body: {
+                title: "Modification"
+            }
+        };
 
-            const next = jest.fn();
+        const res = {
+            status: jest.fn().mockReturnThis(),
+            json: jest.fn()
+        };
 
-            Ticket.findById.mockRejectedValue(new Error("Erreur MongoDB"));
+        const next = jest.fn();
 
-            await updateTicket(req, res, next);
-
-            expect(next).toHaveBeenCalledWith(new Error("Erreur MongoDB"));
+        Ticket.findById.mockResolvedValue({
+            userId: {
+                toString: () => "user123"
+            },
+            status: "en cours"
         });
+
+        await updateTicket(req, res, next);
+
+        expect(res.status).toHaveBeenCalledWith(403);
+
+        expect(res.json).toHaveBeenCalledWith({
+            message: "Le ticket ne peut être modifié"
+        });
+
+        expect(Ticket.findByIdAndUpdate).not.toHaveBeenCalled();
+    });
+    test("updateTicket : ticket introuvable", async() => {
+        const req = {
+            params: {
+                id: "ticket123"
+            }
+        };
+
+        const res = {
+            json: jest.fn(),
+            status: jest.fn().mockReturnThis()
+        };
+
+        const next = jest.fn();
+
+        //aucun ticket
+        Ticket.findById.mockResolvedValue(null);
+
+        await updateTicket(req, res, next);
+
+        expect(res.status).toHaveBeenCalledWith(404);
+
+        expect(res.json).toHaveBeenCalledWith({message: "Ticket introuvable"});
+
+        expect(Ticket.findByIdAndUpdate).not.toHaveBeenCalled();
+
+        expect(next).not.toHaveBeenCalled();
+    });
+    test("updateTicket: accès refusé", async() => {
+        const req = {
+            params: {
+                id: "ticket123"
+            },
+            userId: "user123",
+            userRole: "user",
+            body: {
+                title: "Modification"
+            }
+        };
+
+        const res = {
+            status: jest.fn().mockReturnThis(),
+            json: jest.fn()
+        };
+
+        const next = jest.fn();
+
+        //simule le ticket trouvé
+        Ticket.findById.mockResolvedValue({
+            userId: {
+                toString: () => "autreUser"
+            }
+        });
+
+        await updateTicket(req, res, next);
+
+        expect(res.status).toHaveBeenCalledWith(403);
+
+        expect(res.json).toHaveBeenCalledWith({message: "Accès refusé"});
+
+        expect(Ticket.findByIdAndUpdate).not.toHaveBeenCalled();
+
+        expect(next).not.toHaveBeenCalled();
+    });
+    //si erreur serveur -> controleur ne plante pas
+    test("updateTicket: erreur serveur", async() => {
+        const req = {
+            params: {
+                id: "ticket123"
+            }
+        };
+
+        const res = {
+            json: jest.fn()
+        };
+
+        const next = jest.fn();
+
+        //simule une erreur mongodb
+        Ticket.findById.mockRejectedValue(new Error("Erreur MongoDB"));
+
+        await updateTicket(req, res, next);
+
+        expect(next).toHaveBeenCalled();
+
+        expect(next.mock.calls[0][0].message).toBe("Erreur MongoDB");
+    });
 });
