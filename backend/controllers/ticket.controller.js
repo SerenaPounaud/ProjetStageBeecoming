@@ -65,8 +65,8 @@ export const updateTicket = async (req,res,next) => {
             return res.status(404).json({ message: "Ticket introuvable" });
         }
 
-        //vérifie que l'user est le créateur
-        if (ticket.userId.toString() !== String(req.userId)) {
+        //vérifie qui est le créateur
+        if (req.userRole === "admin" || ticket.userId.toString() !== String(req.userId)) {
             return res.status(403).json({ message: "Accès refusé" });
         }
 

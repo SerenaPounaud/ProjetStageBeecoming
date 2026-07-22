@@ -28,16 +28,16 @@ export const signup = async (req,res,next) => {
         const token = jwt.sign(
             {userId: user._id, role: user.role},
             process.env.JWT_SECRET,
-            {expiresIn: "1m"}
+            {expiresIn: "3h"}
         );
         // cookie hhtponly, risque csrf
         res.cookie("token", token, {
             httpOnly: true, //empêche l'accès au cookie depuis le JS
             secure: process.env.NODE_ENV === "production", //interception réseau
             sameSite: "lax", //empêche l'envoi du cookie depuis un autre domaine
-            maxAge: 60*1000 //3h
+            maxAge: 3*60*60*1000 //3h
         });
-        return res.status(200).json({message: "Utilisateur créé", expiresAt: Date.now() + 60*1000});
+        return res.status(200).json({message: "Utilisateur créé", expiresAt: Date.now() + 3*60*60*1000});
     } catch (error) {
         next(error);
     }
@@ -56,16 +56,16 @@ export const signin = async (req,res,next) => {
         const token = jwt.sign(
             {userId: user._id, role: user.role},
             process.env.JWT_SECRET,
-            {expiresIn: "1m"}
+            {expiresIn: "3h"}
         );
         //cookie httponly
         res.cookie("token", token, {
             httpOnly: true, //empêche l'accès au cookie depuis le JS
             secure: process.env.NODE_ENV === "production", //interception réseau
             sameSite: "lax", //empêche l'envoi du cookie depuis un autre domaine
-            maxAge: 60*1000 //3*60*60*1000 3h
+            maxAge: 3*60*60*1000 //3h
         });
-        res.status(200).json({message: "Connexion réussie", expiresAt: Date.now() + 60*1000});
+        res.status(200).json({message: "Connexion réussie", expiresAt: Date.now() + 3*60*60*1000});
     } catch (error) {
         next(error);
     }

@@ -105,7 +105,7 @@ describe("Test du controller User", () => { //regroupe les tests
         },
         "secret_test",
         {
-            expiresIn: "1m"
+            expiresIn: "3h"
         }
     );
 
@@ -231,7 +231,7 @@ describe("Test du controller User", () => { //regroupe les tests
     },
     "secret_test",
     {
-        expiresIn: "1m"
+        expiresIn: "3h"
     }
     );
 
@@ -240,7 +240,7 @@ describe("Test du controller User", () => { //regroupe les tests
         httpOnly: true,
         secure: false,
         sameSite: "lax",
-        maxAge: 60000
+        maxAge: 10800000
     });
 
     expect(res.status).toHaveBeenCalledWith(200);
