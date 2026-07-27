@@ -17,13 +17,8 @@ export class App {
 
   ngOnInit(){
     //vérifie si l'user est connecté
-    this.authService.checkAuth().subscribe({
-      next: (res) => {
-        this.authService.setConnected(res.authenticated);
-      },
-      error: () => {
-        this.authService.setConnected(false);
-      }
+    this.authService.checkAuth().subscribe(res => {
+      this.authService.setConnected(res.authenticated);
     });
   }
 }

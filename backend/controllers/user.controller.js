@@ -83,7 +83,7 @@ export const logout = (req, res) => {
 //vérifie si user connecté
 export const me = (req, res) => {
     const token = req.cookies.token; //récupère le cookie
-    if(!token) return res.status(401).json({authenticated: false});
+    if(!token) return res.status(200).json({authenticated: false});
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET); //vérifie token valide
@@ -94,6 +94,6 @@ export const me = (req, res) => {
             role: decoded.role
         });
     } catch(error) {
-        return res.status(401).json({authenticated: false});
+        return res.status(200).json({authenticated: false});
     }
 };
