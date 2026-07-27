@@ -32,7 +32,7 @@ describe("Tests d'intégration User", () => {
             cgu: true
         });
 
-        expect(response.status).toBe(200);
+        expect(response.status).toBe(201);
 
         expect(response.body.message).toBe("Utilisateur créé");
 

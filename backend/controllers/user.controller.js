@@ -37,7 +37,7 @@ export const signup = async (req,res,next) => {
             sameSite: "lax", //empêche l'envoi du cookie depuis un autre domaine
             maxAge: 3*60*60*1000 //3h
         });
-        return res.status(200).json({message: "Utilisateur créé", expiresAt: Date.now() + 3*60*60*1000});
+        return res.status(201).json({message: "Utilisateur créé", expiresAt: Date.now() + 3*60*60*1000});
     } catch (error) {
         next(error);
     }

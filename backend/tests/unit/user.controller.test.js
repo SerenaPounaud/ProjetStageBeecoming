@@ -112,7 +112,7 @@ describe("Test du controller User", () => { //regroupe les tests
     //vérification cookie
     expect(res.cookie).toHaveBeenCalledWith("token", "fake_token", expect.any(Object));
 
-    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.status).toHaveBeenCalledWith(201);
 
     //vérification du contenu de la réponse
     expect(res.json).toHaveBeenCalledWith({
