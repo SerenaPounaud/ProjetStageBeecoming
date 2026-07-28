@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import userRoutes from './routes/user.routes.js';
 import ticketRoutes from './routes/ticket.routes.js';
+import testRoutes from './routes/test.routes.js';
 import { corsOption } from './cors/cors.js';
 import { errorHandler } from './middlewares/error.middleware.js';
 import helmet from 'helmet';
@@ -34,6 +35,7 @@ app.use(express.json({limit: "10kb"})); //permet d'utiliser des données json + 
 app.use("/api", apiLimiter); //limite le nombre de req globale
 app.use("/api/users", userRoutes);
 app.use("/api", ticketRoutes);
+if(process.env.NODE_ENV === "test") {app.use("/api/test", testRoutes)};
 
 
 app.use(errorHandler);

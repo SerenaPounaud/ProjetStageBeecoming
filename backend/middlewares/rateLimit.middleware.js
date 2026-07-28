@@ -3,7 +3,7 @@ import rateLimit from 'express-rate-limit';
 //Limite le nombre de requêtes globale api (brute force, spam API)
 export const apiLimiter = rateLimit({
     windowMs: 15*60*1000, //15min
-    max: 100, //limite à 100 req
+    max: 1000, //limite à 100 req
 
     standardHeaders: true,
     legacyHeaders: false,
@@ -16,6 +16,6 @@ export const apiLimiter = rateLimit({
 //Limite login
 export const loginLimiter = rateLimit({
     windowMs: 15*60*1000, //15min
-    max: 5,
+    max: 500,
     message: "Trop de tentative de connexion"
 });

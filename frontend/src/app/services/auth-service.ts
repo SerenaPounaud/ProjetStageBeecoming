@@ -23,7 +23,7 @@ export class AuthService {
   }
 
   checkAuth() {
-  return this.http.get<any>(`${this.url}/me`, {withCredentials: true});
+    return this.http.get<any>(`${this.url}/me`, {withCredentials: true});
   }
 
   setExpiration(expiresAt: number) {

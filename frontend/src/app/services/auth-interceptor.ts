@@ -7,7 +7,6 @@ import { catchError, throwError } from "rxjs";
 //ajoute les cookies aux requêtes HTTP
 export const authInterceptor: HttpInterceptorFn = (req,next) => {
   const authService = inject(AuthService);
-  const router = inject(Router);
 
   const authReq = req.clone({ withCredentials: true});
   
