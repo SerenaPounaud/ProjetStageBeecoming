@@ -24,10 +24,10 @@ export const validateUser = (req, res, next) => {
                 "string.empty": "La email est obligatoire",
                 "any.required": "La email est obligatoire"
             }),
-        password: Joi.string().min(3).max(10).pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/).required().messages({
+        password: Joi.string().min(6).max(10).pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/).required().messages({
                 "string.base": "Le mot de passe doit être une chaîne de caractère",
                 "string.empty": "Le mot de passe est obligatoire",
-                "string.min": "Minimum 3 caractères",
+                "string.min": "Minimum 6 caractères",
                 "string.max": "Maximum 10 caractères",
                 "string.pattern.base": "Le mot de passe doit contenir une majuscule, une minuscule et un chiffre",
                 "any.required": "Le mot de passe est obligatoire"

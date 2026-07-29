@@ -22,7 +22,7 @@
                     [attr.aria-invalid]="signUpForm.get('firstname')?.invalid && (signUpForm.get('firstname')?.touched || signUpForm.get('firstname')?.dirty)" 
                     autocomplete="on">
             <div class="text-error" id="firstname-error" aria-live="polite">
-                @if(signUpForm.get('firstname')?.invalid && (signUpForm.get('firstname')?.touched || signUpForm.get('name')?.dirty)) {
+                @if(signUpForm.get('firstname')?.invalid && (signUpForm.get('firstname')?.touched || signUpForm.get('firstname')?.dirty)) {
                     @if(signUpForm.get('firstname')?.errors?.['required']){
                         Ce champ est obligatoire
                     } @else if (signUpForm.get('firstname')?.errors?.['minlength'] || (signUpForm.get('firstname')?.errors?.['maxlength'])){
