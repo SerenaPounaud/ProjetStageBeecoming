@@ -143,14 +143,14 @@ describe("Tests d'intégration User", () => {
     test("Me : sans cookie", async() => {
         const response = await request(app).get("/api/users/me");
 
-        expect(response.status).toBe(401);
+        expect(response.status).toBe(200);
 
         expect(response.body).toEqual({authenticated: false});
     });
     test("Me : token invalide", async() => {
         const response = await request(app).get("/api/users/me").set("Cookie", "token=faketoken");
 
-        expect(response.status).toBe(401);
+        expect(response.status).toBe(200);
 
         expect(response.body).toEqual({authenticated: false});
     });

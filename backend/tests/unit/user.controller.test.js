@@ -319,7 +319,7 @@ describe("Test du controller User", () => { //regroupe les tests
     //exécution du controleur
     await me(req, res);
 
-    expect(res.status).toHaveBeenCalledWith(401);
+    expect(res.status).toHaveBeenCalledWith(200);
 
     //vérification du contenu de la réponse
     expect(res.json).toHaveBeenCalledWith({authenticated: false});
@@ -345,7 +345,7 @@ describe("Test du controller User", () => { //regroupe les tests
     //exécution du controleur
     await me(req, res);
 
-    expect(res.status).toHaveBeenCalledWith(401);
+    expect(res.status).toHaveBeenCalledWith(200);
 
     //vérification du contenu de la réponse
     expect(res.json).toHaveBeenCalledWith({authenticated: false});

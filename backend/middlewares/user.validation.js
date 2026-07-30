@@ -22,6 +22,7 @@ export const validateUser = (req, res, next) => {
         email: Joi.string().email({tlds: {allow: true}}).required().messages({ //extension de domaine
                 "string.base": "La email doit être une chaîne de caractère",
                 "string.empty": "La email est obligatoire",
+                "string.email": "L'email doit être valide",
                 "any.required": "La email est obligatoire"
             }),
         password: Joi.string().min(6).max(10).pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/).required().messages({
@@ -45,7 +46,7 @@ export const validateUser = (req, res, next) => {
         return res.status(400).json({
             message: "Erreur de validation",
             errors: error.details.map(err => err.message)
-    });
+        });
     }
     next();
 };

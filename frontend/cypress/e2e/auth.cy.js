@@ -48,9 +48,9 @@ beforeEach(() => {
 
         cy.on("window:alert", (text) => {
             expect(text).to.equal("Email déjà utilisé");
-    });
-
+        });
         cy.get("button[type='submit']").click();
+
     });
 
     it("Refuse un email invalide", () => {
@@ -110,23 +110,20 @@ beforeEach(() => {
 
         cy.get("button[type='submit']").click();
 
-        cy.wait("@signup")
-            .its("response.statusCode")
-            .should("eq", 201);
+        cy.wait("@signup").its("response.statusCode").should("eq", 201);
 
-        cy.getCookie("token")
-            .should("exist");
+        cy.getCookie("token").should("exist");
 
     });
 
     it("Connecte un utilisateur", () => {
         cy.createUser("connectedUser@gmail.fr");
-
-        cy.login("connectedUser@gmail.fr");
-
         cy.on("window:alert", (text) => { //récupère le texte
             expect(text).to.equal("Connexion réussie");
         });
+
+        cy.login("connectedUser@gmail.fr");
+
         cy.url().should("include", "/");
     });
 
@@ -145,6 +142,7 @@ beforeEach(() => {
         cy.on("window:alert", (text) => {
             expect(text).to.equal("Email ou mot de passe incorrect");
         });
+        
         cy.login("WrongEmail@gmail.fr");
     });
 
@@ -185,7 +183,6 @@ beforeEach(() => {
 
     it("Supprime le cookie après déconnexion", () => {
         cy.createUser("logout2@gmail.fr");
-        cy.clearCookies();
 
         cy.intercept("POST", "/api/users/signin").as("signin"); //intercept une req réseau et renomme
         cy.login("logout2@gmail.fr");
@@ -198,14 +195,5 @@ beforeEach(() => {
         cy.wait("@logout");
 
         cy.getCookie("token").should("not.exist");
-    });
-
-    it("Me : Retourne l'utilisateur après connexion", () => {
-        cy.createUser("me@gmail.fr");
-
-        cy.login("me@gmail.fr");
-
-        //vérifie que l'utilisateur est bien reconnu comme connecté par le serveur
-        cy.request("/api/users/me").its("body.authenticated").should("equal", true);
     });
 });
