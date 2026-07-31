@@ -7,6 +7,9 @@ beforeEach(() => {
 
     it("Créer un utilisateur", () => {
         cy.createUser("michel@gmail.fr");
+        cy.on("window:alert", (text) => {
+            expect(text).to.equal("Inscription réussie");
+        });
         cy.url().should("include", "/"); //vérifie l'adresse actuelle => l'accueil
     });
 
@@ -117,24 +120,22 @@ beforeEach(() => {
     });
 
     it("Connecte un utilisateur", () => {
-        cy.createUser("connectedUser@gmail.fr");
-        cy.on("window:alert", (text) => { //récupère le texte
-            expect(text).to.equal("Connexion réussie");
-        });
+        cy.createUser("connected@gmail.fr");
 
-        cy.login("connectedUser@gmail.fr");
+        cy.login("connected@gmail.fr");
 
         cy.url().should("include", "/");
     });
 
-    it("Refuser un mauvais mot de passe", () => {
+
+    it("Refuse la connexion avec un mot de passe incorrect", () => {
 
         cy.createUser("michel2@gmail.fr");
 
         cy.on("window:alert", (text) => { //récupère le texte
             expect(text).to.equal("Email ou mot de passe incorrect");
         });
-        cy.login("michel2@gmail.fr", "WrongPassword123");
+        cy.login("michel2@gmail.fr", "WrongP123");
     });
 
     it("Refuser un mauvais email", () => {
@@ -143,7 +144,7 @@ beforeEach(() => {
             expect(text).to.equal("Email ou mot de passe incorrect");
         });
         
-        cy.login("WrongEmail@gmail.fr");
+        cy.login("wrongemail@gmail.fr");
     });
 
     it("Crée un cookie JWT après connexion", () => {

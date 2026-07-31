@@ -18,9 +18,7 @@ Cypress.Commands.add("createUser", (email: string) => {
     cy.get("#email").type(email);
     cy.get("#password").type("Azerty123");
     cy.get("#cgu").check();
-    cy.on("window:alert", (text) => {
-        expect(text).to.equal("Inscription réussie");
-    });
+
     cy.get("button[type='submit']").should("not.be.disabled").click();
 });
 
@@ -29,10 +27,12 @@ Cypress.Commands.add("login", (email: string, password = "Azerty123") => {
 
     cy.get("#email").type(email);
     cy.get("#password").type(password);
+
     cy.intercept("POST", "/api/users/signin").as("signin");
+    
     cy.get("button[type='submit']").should("not.be.disabled").click();
 
-   cy.wait("@signin");
+    cy.wait("@signin");
 });
 
 export {};
